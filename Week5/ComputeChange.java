@@ -38,30 +38,20 @@ public class ComputeChange {
 
         // Display results
         System.out.println("Your amount " + amount + " consists of");
-        if(numberOfOneDollars == 1) {
-            System.out.println(" " + numberOfOneDollars + " dollar");
-        } else if(numberOfOneDollars > 1) {
-            System.out.println(" " + numberOfOneDollars + " dollars");
+        if(numberOfOneDollars > 0) {
+            System.out.println(" " + numberOfOneDollars + " dollar" + (numberOfOneDollars > 1 ? "s" : ""));
         }
-        if(numberOfQuarters == 1) {
-            System.out.println(" " + numberOfQuarters + " quarter");
-        } else if (numberOfQuarters > 1) {
-            System.out.println(" " + numberOfQuarters + " quarters");
+        if(numberOfQuarters > 0) {
+            System.out.println(" " + numberOfQuarters + " quarter" + (numberOfQuarters > 1 ? "s" : ""));
         }
-        if(numberOfDimes == 1) {
-            System.out.println(" " + numberOfDimes + " dime");
-        } else if(numberOfDimes > 1) {
-            System.out.println(" " + numberOfDimes + " dimes");
+        if(numberOfDimes > 0) {
+            System.out.println(" " + numberOfDimes + " dime" + (numberOfDimes > 1 ? "s" : ""));
         }
-        if(numberOfNickels == 1) {
-            System.out.println(" " + numberOfNickels + " nickel");
-        } else if(numberOfNickels > 1) {
-            System.out.println(" " + numberOfNickels + " nickels");
+        if(numberOfNickels > 0) {
+            System.out.println(" " + numberOfNickels + " nickel" + (numberOfNickels > 1 ? "s" : ""));
         }
-        if(numberOfPennies == 1) {
-            System.out.println(" " + numberOfPennies + " penny");
-        } else if(numberOfPennies > 1) {
-            System.out.println(" " + numberOfPennies + " pennies");
+        if(numberOfPennies > 0) {
+            System.out.println(" " + numberOfPennies + (numberOfPennies > 1 ? " pennies" : " penny"));
         }
     }
 }
