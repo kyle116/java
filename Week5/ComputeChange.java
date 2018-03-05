@@ -2,7 +2,7 @@
 //Assignment:         Assignment info (ex.: Lab03 - Page 109 - #3.7)
 //Class:                   CO SCI 290
 //Date:                    02/27/2018
-//Description:        Health application: BMI
+//Description:        Financial application: monetary units
 import java.util.Scanner;
 
 public class ComputeChange {
@@ -11,8 +11,7 @@ public class ComputeChange {
         Scanner input = new Scanner(System.in);
 
         // Receive the amount
-        System.out.print(
-                "Enter an amount in double, for example 11.56: ");
+        System.out.print("Enter an amount in double, for example 11.56: ");
         double amount = input.nextDouble();
 
         int remainingAmount = (int)(amount * 100);

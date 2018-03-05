@@ -25,18 +25,18 @@ public class BMI {
         // Compute BMI
         double weightInKilograms = weight * KILOGRAMS_PER_POUND;
         double heightInMeters = (height + (feet*12)) * METERS_PER_INCH;
-        double bmi = weightInKilograms /
-                (heightInMeters * heightInMeters);
+        double bmi = weightInKilograms / (heightInMeters * heightInMeters);
 
         // Display result
         System.out.println("BMI is " + bmi);
-        if (bmi < 18.5)
+        if (bmi < 18.5) {
             System.out.println("Underweight");
-        else if (bmi < 25)
+        } else if (bmi < 25) {
             System.out.println("Normal");
-        else if (bmi < 30)
+        } else if (bmi < 30) {
             System.out.println("Overweight");
-        else
+        } else {
             System.out.println("Obese");
+        }
     }
 }

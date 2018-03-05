@@ -9,32 +9,32 @@ public class RandomMonth {
     public static void main(String[] args) {
         int randomMonth = (int) (Math.random() * 12) + 1;
         switch (randomMonth) {
-            case 1:  System.out.println("The Random month is: January");
-                break;
-            case 2:  System.out.println("The Random month is: February");
-                break;
-            case 3:  System.out.println("The Random month is: March");
-                break;
-            case 4:  System.out.println("The Random month is: April");
-                break;
-            case 5:  System.out.println("The Random month is: May");
-                break;
-            case 6:  System.out.println("The Random month is: June");
-                break;
-            case 7:  System.out.println("The Random month is: July");
-                break;
-            case 8:  System.out.println("The Random month is: August");
-                break;
-            case 9:  System.out.println("The Random month is: September");
-                break;
+            case 1: System.out.println("The Random month is: January");
+                    break;
+            case 2: System.out.println("The Random month is: February");
+                    break;
+            case 3: System.out.println("The Random month is: March");
+                    break;
+            case 4: System.out.println("The Random month is: April");
+                    break;
+            case 5: System.out.println("The Random month is: May");
+                    break;
+            case 6: System.out.println("The Random month is: June");
+                    break;
+            case 7: System.out.println("The Random month is: July");
+                    break;
+            case 8: System.out.println("The Random month is: August");
+                    break;
+            case 9: System.out.println("The Random month is: September");
+                    break;
             case 10: System.out.println("The Random month is: October");
-                break;
+                    break;
             case 11: System.out.println("The Random month is: November");
-                break;
+                    break;
             case 12: System.out.println("The Random month is: December");
-                break;
+                    break;
             default: System.out.println("The Random month is: Invalid month");
-                break;
+                    break;
         }
     }
 }
