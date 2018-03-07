@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class BMI {
     public static void main(String[] args) {
+        System.out.println("Program will tell you the BMI based on the entered height and weight.");
         Scanner input = new Scanner(System.in);
         // Prompt the user to enter weight in pounds
         System.out.print("Enter weight in pounds: ");

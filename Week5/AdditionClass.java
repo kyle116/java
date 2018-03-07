@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class AdditionClass {
     public static void main(String[] args) {
+        System.out.println("Program will randomly generate an addition equation. Enter the correct answer");
         // 1. Generate two random single-digit integers
         int number1 = (int) (Math.random() * 10);
         int number2 = (int) (Math.random() * 10);

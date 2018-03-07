@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class AddThreeNumbers {
     public static void main(String[] args) {
+        System.out.println("Program will randomly generate an addition equation. Enter the correct answer");
         int number1 = (int)(System.currentTimeMillis() % 10);
         int number2 = (int)(System.currentTimeMillis() / 7 % 10);
         int number3 = (int)(System.currentTimeMillis() / 10 % 10);
