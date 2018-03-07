@@ -1,4 +1,4 @@
-//Written by:           Kyle Liu
+//Written by:           Kyle Liu & Raul Oregel
 //Assignment:         Assignment info (ex.: Lab04 - Page 109 - #3.4)
 //Class:                   CO SCI 290
 //Date:                    03/06/2018
