@@ -51,6 +51,19 @@ public class ComputeTaxes {
          }
       } else if (status == 2) { // Compute tax for married separately
          // Left as an exercise
+         if (income <= 8350) {
+            tax = income * 0.10;
+         } else if (income <= 33950) {
+            tax = 8350 * 0.10 + (income - 8350) * 0.15;
+         } else if (income <= 68525) {
+            tax = 8350 * 0.10 + (33950 - 8350) * 0.15 + (income - 33950) * 0.25;
+         } else if (income <= 104425) {
+            tax = 8350 * 0.10 + (33950 - 8350) * 0.15 + (68525 - 33950) * 0.25 + (income - 68525) * 0.28;
+         } else if (income <= 186475) {
+            tax = 8350 * 0.10 + (33950 - 8350) * 0.15 + (68525 - 33950) * 0.25 + (104425 - 68525) * 0.28 + (income - 104425) * 0.33;
+         } else {
+            tax = 8350 * 0.10 + (33950 - 8350) * 0.15 + (68525 - 33950) * 0.25 + (104425 - 68525) * 0.28 + (186475 - 104425) * 0.33 + (income - 186475) * 0.35;
+         }
       } else if (status == 3) { // Compute tax for head of household
          // Left as an exercise
       } else {
