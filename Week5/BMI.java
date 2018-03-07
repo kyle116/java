@@ -10,14 +10,14 @@ public class BMI {
         System.out.println("Program will tell you the BMI based on the entered height and weight.");
         Scanner input = new Scanner(System.in);
         // Prompt the user to enter weight in pounds
-        System.out.print("Enter weight in pounds: ");
+        System.out.print("Enter weight in pounds as a whole number: ");
         double weight = input.nextDouble();
 
-        System.out.print("Enter feet: ");
+        System.out.print("Enter feet as a whole number: ");
         int feet = input.nextInt();
 
         // Prompt the user to enter height in inches
-        System.out.print("Enter inches: ");
+        System.out.print("Enter inches as a whole number: ");
         int height = input.nextInt();
 
         final double KILOGRAMS_PER_POUND = 0.45359237; // Constant

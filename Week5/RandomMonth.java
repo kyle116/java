@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class RandomMonth {
     public static void main(String[] args) {
+        System.out.println("This program randomly generates an integer between 1 and 12 and displays the English month name January, February, …, December for the number 1, 2, …, 12, accordingly");
         int randomMonth = (int) (Math.random() * 12) + 1;
         switch (randomMonth) {
             case 1: System.out.println("The Random month is: January");

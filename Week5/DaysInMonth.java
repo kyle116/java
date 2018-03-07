@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class DaysInMonth {
     public static void main(String[] args) {
+        System.out.println("This program will take an input of month and year and will return the amount of days in the month.");
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter a month: ");
+        System.out.print("Enter a month as an integer: ");
         int month = input.nextInt();
-        System.out.print("Enter a year: ");
+        System.out.print("Enter the year: ");
         int year = input.nextInt();
         boolean isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
         switch (month) {

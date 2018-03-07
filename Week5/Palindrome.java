@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Palindrome {
     public static void main(String[] args) {
+        System.out.println("Program prompts to enter a three-digit integer and determines whether it is a palindrome number. A number is palindrome if it reads the same from right to left and from left to right");
         Scanner input = new Scanner(System.in);
         System.out.print("Enter a three-digit integer: ");
         Integer number = input.nextInt();

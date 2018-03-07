@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class TwoByTwoEquation {
     public static void main(String[] args) {
+        System.out.println("Program takes input as integers of variables a, b, c, d, e, and f and displays the result. If ad - bc is 0, the equation has no solution.");
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter a, b, c, d, e, f: ");
+        System.out.print("Enter a, b, c, d, e, f as integers seperated by spaces: ");
         double a = input.nextDouble();
         double b = input.nextDouble();
         double c = input.nextDouble();

@@ -13,7 +13,7 @@ public class AddThreeNumbers {
         int number3 = (int)(System.currentTimeMillis() / 10 % 10);
 
         Scanner input = new Scanner(System.in);
-        System.out.print("What is " + number1 + " + " + number2 + " + " + number3 + "? ");
+        System.out.print("What is " + number1 + " + " + number2 + " + " + number3 + "? Please enter an integer");
         int answer = input.nextInt();
 
         System.out.println(number1 + " + " + number2 + " + " + number3 + " = " + answer + " is " + (number1 + number2 + number3== answer));

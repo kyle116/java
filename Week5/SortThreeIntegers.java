@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class SortThreeIntegers {
     public static void main(String[] args) {
+        System.out.println("This program takes in three integers and display the integers in non-decreasing order.");
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter 3 integers: ");
+        System.out.print("Enter 3 integers seperated by spaces: ");
         int num1 = input.nextInt();
         int num2 = input.nextInt();
         int num3 = input.nextInt();
