@@ -66,6 +66,19 @@ public class ComputeTaxes {
          }
       } else if (status == 3) { // Compute tax for head of household
          // Left as an exercise
+         if (income <= 11950) {
+            tax = income * 0.10;
+         } else if (income <= 45500) {
+            tax = 11950 * 0.10 + (income - 11950) * 0.15;
+         } else if (income <= 117450) {
+            tax = 11950 * 0.10 + (11950 - 11950) * 0.15 + (income - 11950) * 0.25;
+         } else if (income <= 190200) {
+            tax = 11950 * 0.10 + (11950 - 11950) * 0.15 + (117450 - 11950) * 0.25 + (income - 117450) * 0.28;
+         } else if (income <= 372950) {
+            tax = 11950 * 0.10 + (11950 - 11950) * 0.15 + (117450 - 11950) * 0.25 + (190200 - 117450) * 0.28 + (income - 190200) * 0.33;
+         } else {
+            tax = 11950 * 0.10 + (11950 - 11950) * 0.15 + (117450 - 11950) * 0.25 + (190200 - 117450) * 0.28 + (372950 - 190200) * 0.33 + (income - 372950) * 0.35;
+         }
       } else {
          System.out.println("Error: invalid status");
          System.exit(1);
