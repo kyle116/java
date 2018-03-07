@@ -9,7 +9,7 @@ public class QuadraticEquations {
     public static void main(String[] args) {
         System.out.println("Program will take values for a, b, and c and displays the result based on the discriminant");
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter numbers for a, b, c: ");
+        System.out.print("Enter numbers for a, b, c as integers seperated by spaces: ");
         double a = input.nextDouble();
         double b = input.nextDouble();
         double c = input.nextDouble();

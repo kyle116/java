@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ComputeChange {
     public static void main(String[] args) {
-        System.out.println("The program will tell you the exact change in Dollars, Quarters, Dimes, Nickels, and Pennies");
+        System.out.println("The program will tell you the exact change in Dollars, Quarters, Dimes, Nickels, and Pennies. If there are zero of a certain coin, it will be skipped");
         // Create a Scanner
         Scanner input = new Scanner(System.in);
 

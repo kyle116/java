@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class FutureDates {
     public static void main(String[] args) {
-        System.out.println("This program will take a day as a number and a second input. From there will display what day it is in the future.");
+        System.out.println("This program will take a day as a number and a second input for the amount of days after. From there will display what day it is in the future.");
         Scanner input = new Scanner(System.in);
         System.out.print("Enter today's day(Number 0-6), example Sunday is 0, Monday is 1: ");
         int today = input.nextInt();

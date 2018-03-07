@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class CheckISBN {
     public static void main(String[] args) {
-        System.out.println("Program will display correct ISBN number based on the ISBN provided.");
+        System.out.println("Program will display correct ISBN number based on the ISBN provided. The last digit will be either a sum of digits or 'X'");
         Scanner input = new Scanner(System.in);
         System.out.print("Enter the first 9 digits of an ISBN as integer: ");
         int isbn = input.nextInt();
