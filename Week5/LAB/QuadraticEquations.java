@@ -1,7 +1,7 @@
-//Written by:           Kyle Liu
-//Assignment:         Assignment info (ex.: Lab03 - Page 108 - #3.1)
+ //Written by:           Kyle Liu & Raul Oregel
+//Assignment:         Assignment info (ex.: Lab04 - Page 108 - #3.1)
 //Class:                   CO SCI 290
-//Date:                    02/27/2018
+//Date:                    03/06/2018
 //Description:        Algebra: solve quadratic equations
 import java.util.Scanner;
 

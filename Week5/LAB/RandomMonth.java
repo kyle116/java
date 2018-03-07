@@ -1,7 +1,7 @@
 //Written by:           Kyle Liu
-//Assignment:         Assignment info (ex.: Lab03 - Page 109 - #3.4)
+//Assignment:         Assignment info (ex.: Lab04 - Page 109 - #3.4)
 //Class:                   CO SCI 290
-//Date:                    02/27/2018
+//Date:                    03/06/2018
 //Description:        Random Month
 import java.util.Scanner;
 
