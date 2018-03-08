@@ -1,7 +1,7 @@
 //Written by:           Kyle Liu
-//Assignment:         Assignment info (ex.: Lab03 - Page 110 - #3.12)
+//Assignment:         Assignment info (ex.: HW04 - Page 110 - #3.12)
 //Class:                   CO SCI 290
-//Date:                    02/27/2018
+//Date:                    03/07/2018
 //Description:        Palindrome number
 import java.util.Scanner;
 
