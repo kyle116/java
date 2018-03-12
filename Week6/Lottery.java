@@ -2,7 +2,7 @@
 //Assignment:         Assignment info (ex.: LAB05 - Page 111 - #3.15)
 //Class:                   CO SCI 290
 //Date:                    03/13/2018
-//Description:        Palindrome number
+//Description:        Lottery
 import java.util.Scanner;
 
 public class Lottery {
