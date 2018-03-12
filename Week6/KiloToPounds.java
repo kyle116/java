@@ -8,8 +8,8 @@ public class KiloToPounds {
     public static void main(String[] args) {
         System.out.println("This program shows a table that converts Kilograms to Pounds up to 199 kilograms");
         final double KILO_TO_POUNDS = 2.2;
+        System.out.println("Kilograms Pounds");
         for(int i = 1; i < 200; i++) {
-            System.out.println("Kilograms Pounds");
             System.out.println(i + "        " + (KILO_TO_POUNDS * i));
         }
     }
