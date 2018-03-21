@@ -14,7 +14,7 @@ public class ASCIITable {
       // Loop through ASCII characters from ! to ~ while ! is less than ~
       while(initialChar <= '~') {
          // Print output
-         System.out.print((char)initialChar + " " + ((count % 10 == 0) ? "\n" : ""));
+         System.out.print(initialChar + " " + ((count % 10 == 0) ? "\n" : ""));
          count++;
          initialChar++;
       }
