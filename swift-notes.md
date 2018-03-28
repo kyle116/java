@@ -237,3 +237,103 @@ var namesOfIntegers = [Int: String]()
 ```
 var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
 ```
+
+### Updating and removing dictionary values
+Updating:
+```
+airports["LHR"] = "London Heathrow"
+// the value for "LHR" has been changed to "London Heathrow"
+```
+or
+```
+if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
+    print("The old value for DUB was \(oldValue).")
+}
+// Prints "The old value for DUB was Dublin."
+```
+
+Removing:
+```
+airports["APL"] = "Apple International"
+// "Apple International" is not the real airport for APL, so delete it
+airports["APL"] = nil
+// APL has now been removed from the dictionary
+```
+or
+```
+if let removedValue = airports.removeValue(forKey: "DUB") {
+    print("The removed airport's name is \(removedValue).")
+} else {
+    print("The airports dictionary does not contain a value for DUB.")
+}
+// Prints "The removed airport's name is Dublin Airport."
+```
+
+### Looping over Dictionary
+```
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+// YYZ: Toronto Pearson
+// LHR: London Heathrow
+```
+
+Loop through keys and values:
+```
+for airportCode in airports.keys {
+    print("Airport code: \(airportCode)")
+}
+// Airport code: YYZ
+// Airport code: LHR
+
+for airportName in airports.values {
+    print("Airport name: \(airportName)")
+}
+// Airport name: Toronto Pearson
+// Airport name: London Heathrow
+```
+
+### Dictionary to Arrays
+```
+let airportCodes = [String](airports.keys)
+// airportCodes is ["YYZ", "LHR"]
+
+let airportNames = [String](airports.values)
+// airportNames is ["Toronto Pearson", "London Heathrow"]
+```
+To iterate over the keys or values of a dictionary in a specific order, use the sorted() method on its keys or values property.
+
+## For in loops
+If you dont need a value, it can be replaced with an underscore
+```
+let base = 3
+let power = 10
+var answer = 1
+for _ in 1...power {
+    answer *= base
+}
+print("\(base) to the power of \(power) is \(answer)")
+// Prints "3 to the power of 10 is 59049"
+```
+Other for in example, closed ranges/certain intervals
+```
+let minutes = 60
+for tickMark in 0..<minutes {
+    // render the tick mark each minute (60 times)
+}
+
+let minuteInterval = 5
+for tickMark in stride(from: 0, to: minutes, by: minuteInterval) {
+    // render the tick mark every 5 minutes (0, 5, 10, 15 ... 45, 50, 55)
+}
+
+let hours = 12
+let hourInterval = 3
+for tickMark in stride(from: 3, through: hours, by: hourInterval) {
+    // render the tick mark every 3 hours (3, 6, 9, 12)
+}
+```
+## While Loop
+`while` evaluates its condition at the start of each pass through the loop.
+
+`repeat-while` evaluates its condition at the end of each pass through the loop.
