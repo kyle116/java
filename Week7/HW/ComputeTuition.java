@@ -1,4 +1,4 @@
-﻿//Written by:           Kyle Liu
+//Written by:           Kyle Liu
 //Assignment:         Assignment info (ex.: LAB05 - Page 193 - #5.7)
 //Class:                   CO SCI 290
 //Date:                    03/13/2018
