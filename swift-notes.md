@@ -143,7 +143,97 @@ shoppingList += ["Chocolate Spread", "Cheese", "Butter"]
 ```
 
 To insert an item into the array at a specified index:
-```shoppingList.insert("Maple Syrup", at: 0)
+```
+shoppingList.insert("Maple Syrup", at: 0)
 // shoppingList now contains 7 items
 // "Maple Syrup" is now the first item in the list
+```
+
+To remove an item from the array at a specified index:
+```
+let mapleSyrup = shoppingList.remove(at: 0)
+// the item that was at index 0 has just been removed
+// shoppingList now contains 6 items, and no Maple Syrup
+// the mapleSyrup constant is now equal to the removed "Maple Syrup" string
+```
+
+If you want to remove the final item from an array, use the `removeLast()` method
+
+Looping through arrays, For each item in the array, the `enumerated()` method returns a tuple composed of an integer and the item. The integers start at zero and count up by one for each item; if you enumerate over a whole array, these integers match the items’ indices.  
+```
+for (index, value) in shoppingList.enumerated() {
+    print("Item \(index + 1): \(value)")
+}
+// Item 1: Six eggs
+// Item 2: Milk
+// Item 3: Flour
+// Item 4: Baking Powder
+// Item 5: Bananas
+```
+
+## Sets
+A set stores distinct values of the same type in a collection with no defined ordering.
+
+A set type cannot be inferred from an array literal alone, so the type Set must be explicitly declared.
+```
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+```
+
+### Fundamental Set Methods
+Use the `intersection(_:)` method to create a new set with only the values common to both sets.
+
+Use the `symmetricDifference(_:)` method to create a new set with values in either set, but not both.
+
+Use the `union(_:)` method to create a new set with all of the values in both sets.
+
+Use the `subtracting(_:)` method to create a new set with values not in the specified set.
+
+```
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
+
+oddDigits.union(evenDigits).sorted()
+// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+oddDigits.intersection(evenDigits).sorted()
+// []
+oddDigits.subtracting(singleDigitPrimeNumbers).sorted()
+// [1, 9]
+oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
+// [1, 2, 9]
+```
+
+Use the “is equal” operator (`==`) to determine whether two sets contain all of the same values.
+
+Use the `isSubset(of:)` method to determine whether all of the values of a set are contained in the specified set.
+
+Use the `isSuperset(of:)` method to determine whether a set contains all of the values in a specified set.
+
+Use the `isStrictSubset(of:)` or `isStrictSuperset(of:)` methods to determine whether a set is a subset or superset, but not equal to, a specified set.
+
+Use the `isDisjoint(with:)` method to determine whether two sets have no values in common.
+```
+let houseAnimals: Set = ["🐶", "🐱"]
+let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
+let cityAnimals: Set = ["🐦", "🐭"]
+
+houseAnimals.isSubset(of: farmAnimals)
+// true
+farmAnimals.isSuperset(of: houseAnimals)
+// true
+farmAnimals.isDisjoint(with: cityAnimals)
+// true
+```
+
+## Dictionaries
+### Creating an Empty Dictionary
+As with arrays, you can create an empty Dictionary of a certain type by using initializer syntax:
+```
+var namesOfIntegers = [Int: String]()
+// namesOfIntegers is an empty [Int: String] dictionary
+```
+
+### Creating a Dictionary with a Dictionary Literal
+```
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
 ```
