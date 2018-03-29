@@ -3,6 +3,22 @@
 ## Assignment and Casting:
 `let twoThousand: UInt16 = 2_000`
 
+### Number to string
+```
+var a: Double = 1.5
+var b: String = String(format:"%f", a)
+print("b: \(b)") // b: 1.500000
+```
+
+### Format a string
+```
+func formatMoney(_ val:Double) -> String {
+  return String(format: "$%.2f", val)
+}
+print(formatMoney(3.1))
+// $3.10
+```
+
 ## Tuples:
 Examples:
 
@@ -20,6 +36,11 @@ print("The status message is \(http200Status.description)")
 ```
 let (x, y) = (1, 2)
 // x is equal to 1, and y is equal to 2
+
+let tup = (2, 3)
+
+print(tup.0)
+// prints 2
 ```
 
 ## Optionals
@@ -337,3 +358,139 @@ for tickMark in stride(from: 3, through: hours, by: hourInterval) {
 `while` evaluates its condition at the start of each pass through the loop.
 
 `repeat-while` evaluates its condition at the end of each pass through the loop.
+
+## Switch Statements
+`switch` statements in Swift do not fall through the bottom of each case and into the next one by default. Instead, the entire switch statement finishes its execution as soon as the first matching switch case is completed, without requiring an explicit break statement.
+
+To make a switch with a single case that matches both "a" and "A", combine the two values into a compound case, separating the values with commas.
+```
+let anotherCharacter: Character = "a"
+switch anotherCharacter {
+case "a", "A":
+    print("The letter A")
+default:
+    print("Not the letter A")
+}
+// Prints "The letter A"
+```
+
+### Tuples with switch statements
+```
+let somePoint = (1, 1)
+switch somePoint {
+case (0, 0):
+    print("\(somePoint) is at the origin")
+case (_, 0):
+    print("\(somePoint) is on the x-axis")
+case (0, _):
+    print("\(somePoint) is on the y-axis")
+case (-2...2, -2...2):
+    print("\(somePoint) is inside the box")
+default:
+    print("\(somePoint) is outside of the box")
+}
+// Prints "(1, 1) is inside the box"
+```
+
+### Where clause on switch
+```
+let yetAnotherPoint = (1, -1)
+switch yetAnotherPoint {
+case let (x, y) where x == y:
+    print("(\(x), \(y)) is on the line x == y")
+case let (x, y) where x == -y:
+    print("(\(x), \(y)) is on the line x == -y")
+case let (x, y):
+    print("(\(x), \(y)) is just some arbitrary point")
+}
+// Prints "(1, -1) is on the line x == -y"
+```
+
+### Control transfer statements
+`fallthrough` allows for a switch statement to continue down into the next case
+```
+let integerToDescribe = 5
+var description = "The number \(integerToDescribe) is"
+switch integerToDescribe {
+case 2, 3, 5, 7, 11, 13, 17, 19:
+    description += " a prime number, and also"
+    fallthrough
+default:
+    description += " an integer."
+}
+print(description)
+// Prints "The number 5 is a prime number, and also an integer."
+```
+
+### Labeled Statements
+Swift allows for labeled loops and conditional statements. They all use `break` and `continue` so to clear up which loop or conditional, you can label them
+```
+gameLoop: while square != finalSquare {
+    diceRoll += 1
+    if diceRoll == 7 { diceRoll = 1 }
+    switch square + diceRoll {
+    case finalSquare:
+        // diceRoll will move us to the final square, so the game is over
+        break gameLoop // Labeled here
+    case let newSquare where newSquare > finalSquare:
+        // diceRoll will move us beyond the final square, so roll again
+        continue gameLoop // Labeled here
+    default:
+        // this is a valid move, so find out its effect
+        square += diceRoll
+        square += board[square]
+    }
+}
+print("Game over!")
+```
+
+## Guard Statements
+Guard statement is similar to an if statement in a sense that it operates based on a boolean. Guard statements require an `else` clause as well.  
+```
+func greet(person: [String: String]) {
+    guard let name = person["name"] else {
+        return
+    }
+
+    print("Hello \(name)!")
+
+    guard let location = person["location"] else {
+        print("I hope the weather is nice near you.")
+        return
+    }
+
+    print("I hope the weather is nice in \(location).")
+}
+
+greet(person: ["name": "John"])
+// Prints "Hello John!"
+// Prints "I hope the weather is nice near you."
+greet(person: ["name": "Jane", "location": "Cupertino"])
+// Prints "Hello Jane!"
+// Prints "I hope the weather is nice in Cupertino."
+````
+
+## Checking API Availability
+```
+if #available(iOS 10, macOS 10.12, *) {
+    // Use iOS 10 APIs on iOS, and use macOS 10.12 APIs on macOS
+} else {
+    // Fall back to earlier iOS and macOS APIs
+}
+```
+The availability condition above specifies that in iOS, the body of the if statement executes only in iOS 10 and later; in macOS, only in macOS 10.12 and later. The last argument, `*` , is required and specifies that on any other platform, the body of the if executes on the minimum deployment target specified by your target.
+
+## Functions
+All functions are prefixed with `func`. After the `->` is the function's return type. Functions are not required to have return values therefore if there is not return, just remove the `->` and type after
+```
+func greet(person: String, alreadyGreeted: Bool) -> String {
+    if alreadyGreeted {
+        return greetAgain(person: person)
+    } else {
+        return greet(person: person)
+    }
+}
+print(greet(person: "Tim", alreadyGreeted: true))
+// Prints "Hello again, Tim!"
+
+```
