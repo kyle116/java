@@ -12,6 +12,7 @@ public class ProjectEint_v2 {
 			String mainString = "";
 			double optPrice = 0;
 			String optString = "";
+			int optionCount = 0;
       Scanner keyboard = new Scanner(System.in);
       do {
          displayMainMenu();
@@ -35,31 +36,31 @@ public class ProjectEint_v2 {
 		 			   case 1: total -= mainPrice; // If customer selects "2" a second time, will clear out previous selection
 						 				 mainString = "";
 						 			 	 mainPrice = 23.99;
-						 				 mainString = "Economy ($23.99)";
+						 				 mainString = "Economy ($23.99)\n";
 		 				 				 break;
 		 				 case 2: total -= mainPrice;
 										 mainString = "";
 										 mainPrice = 39.99;
-						 				 mainString = "Compact ($39.99)";
+						 				 mainString = "Compact ($39.99)\n";
 		 				  			 break;
 		 				 case 3: total -= mainPrice;
 										 mainString = "";
 										 mainPrice = 49.99;
-						 				 mainString = "Standard ($49.99)";
+						 				 mainString = "Standard ($49.99)\n";
 		 				  			 break;
 		 				 case 4: total -= mainPrice;
 										 mainString = "";
 										 mainPrice = 79.99;
-						 				 mainString = "Premium ($79.99)";
+						 				 mainString = "Premium ($79.99)\n";
 		 			  				 break;
 		 	 			 case 5: break;
 			 		 }
 					 total += mainPrice;
-		 			// return retPrice;
          } else if (mainInput.equals("3")) {
 					 displayOptionsMenu();
 		 			 do {
 			 				optSelection = keyboard.nextInt();
+							optionCount++;
 			 				switch(optSelection) {
 			 					case 1: optPrice += 99.99;
 												optString += "Insurance ($99.99)\n";
@@ -82,7 +83,6 @@ public class ProjectEint_v2 {
 			 					case 7: break;
 			 				}
 		 			 } while(optSelection != 7);
-		 			// return optPrice;
 					total += optPrice;
          }  else if (mainInput.equals("4")) {
 					 do {
@@ -97,9 +97,9 @@ public class ProjectEint_v2 {
 							}
 					 } while(!(customerInput.equals("4")));
          } else if(mainInput.equals("5")) {
-					 displayOrder(name, total, mainString); // Remove
+					 displayOrder(name, total, mainString, optString, optionCount); // Remove
             if(isOrderConplete(name)) {
-							 displayOrder(name, total, mainString);
+							 displayOrder(name, total, mainString, optString, optionCount);
             } else {
                displayErrors(name);
             }
@@ -155,8 +155,7 @@ public class ProjectEint_v2 {
                          "5. Main Menu\n");
       System.out.print("\nMake your selection(1-5): ");
    }
-	 private static double displayOptionsMenu() {
-
+	 private static void displayOptionsMenu() {
       System.out.println();
       System.out.println("1. Insurance ($99.99)\n" +
                          "2. GPS ($14.99)\n" +
@@ -166,7 +165,6 @@ public class ProjectEint_v2 {
                          "6. Clear Options\n" +
                          "7. Main Menu\n");
       System.out.print("\nYour selection: ");
-
    }
 	 private static void displayPaymentsMenu() {
       System.out.println();
@@ -176,9 +174,23 @@ public class ProjectEint_v2 {
                          "4. Main Menu\n");
       System.out.print("\nYour selection: ");
    }
-   private static void displayOrder(String name, double total, String mainSelection) {
-		 System.out.print(total + " " + mainSelection);
-      String orderInfo = "\nName: " + name;
+	 private static String getGift(int optionCount) {
+		 String giftString = "";
+		 if(optionCount == 2) {
+			 giftString = "$20 coupon for your next rental";
+		 } else if(optionCount == 3) {
+			 giftString = "$10 off at a local restaurant";
+		 } else if(optionCount >= 4) {
+			 giftString = "One free car wash";
+		 }
+		 return giftString;
+	 }
+   private static void displayOrder(String name, double total, String mainSelection, String optSelection, int optionCount) {
+			String orderInfo = "You have placed an order for: \n";
+			orderInfo = orderInfo + mainSelection + "With the following options:\n" + optSelection;
+			orderInfo += "\nTotal price: $" + ((double) Math.round(total * 1.0975 * 100)/100) + "\n\n";
+			orderInfo += "Congratulations. You will get the following free gift with your order:\n" + (getGift(optionCount));
+      orderInfo += "\nName: " + name;
       System.out.println("\n" + orderInfo + "\n");
    }
    private static void displayErrors(String name) {
