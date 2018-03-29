@@ -5,7 +5,7 @@ public class ProjectEint_v2 {
       String number="";
       String address="";
       String missingInfo="";
-      String mainInput, customerInput;
+      String mainInput, customerInput, cardInput;
 			int mainSelection, optSelection;
 			double total = 0;
 			double mainPrice = 0;
@@ -13,6 +13,8 @@ public class ProjectEint_v2 {
 			double optPrice = 0;
 			String optString = "";
 			int optionCount = 0;
+			String cardType = "";
+			String cardNumber = "";
       Scanner keyboard = new Scanner(System.in);
       do {
          displayMainMenu();
@@ -84,24 +86,28 @@ public class ProjectEint_v2 {
 			 				}
 		 			 } while(optSelection != 7);
 					total += optPrice;
-         }  else if (mainInput.equals("4")) {
+         } else if (mainInput.equals("4")) {
 					 do {
 							displayPaymentsMenu();
-							customerInput = keyboard.nextLine();
-							if(customerInput.equals("1")) {
-								 name = getName();
-							} else if(customerInput.equals("2")) {
-								 number = getNumber();
-							} else if(customerInput.equals("3")) {
-								 address = getAddress();
+							cardInput = keyboard.nextLine();
+							if(cardInput.equals("1")) {
+								cardType = "Visa";
+								System.out.print("Please enter your card number:");
+								cardNumber = keyboard.nextLine();
+							} else if(cardInput.equals("2")) {
+								cardType = "MasterCard";
+								System.out.print("Please enter your card number");
+								cardNumber = keyboard.nextLine();
+							} else if(cardInput.equals("3")) {
+								cardType = "Cash";
 							}
-					 } while(!(customerInput.equals("4")));
+					 } while(!(cardInput.equals("4")));
          } else if(mainInput.equals("5")) {
-					 displayOrder(name, total, mainString, optString, optionCount); // Remove
-            if(isOrderConplete(name)) {
-							 displayOrder(name, total, mainString, optString, optionCount);
+					 // displayOrder(name, number, address, total, mainString, optString, optionCount, cardType, cardNumber); // Remove
+            if(isOrderConplete(name, number, address, mainString, cardType, cardNumber)) {
+							 displayOrder(name, number, address, total, mainString, optString, optionCount, cardType, cardNumber);
             } else {
-               displayErrors(name);
+               displayErrors(name, number, address, mainString, cardType, cardNumber);
             }
          }
       } while(!(mainInput.equals("6")));
@@ -185,24 +191,43 @@ public class ProjectEint_v2 {
 		 }
 		 return giftString;
 	 }
-   private static void displayOrder(String name, double total, String mainSelection, String optSelection, int optionCount) {
+   private static void displayOrder(String name, String number, String address, double total, String mainSelection, String optSelection, int optionCount, String cardType, String cardNumber) {
 			String orderInfo = "You have placed an order for: \n";
 			orderInfo = orderInfo + mainSelection + "With the following options:\n" + optSelection;
 			orderInfo += "\nTotal price: $" + ((double) Math.round(total * 1.0975 * 100)/100) + "\n\n";
 			orderInfo += "Congratulations. You will get the following free gift with your order:\n" + (getGift(optionCount));
-      orderInfo += "\nName: " + name;
+      orderInfo += "\nSold to: " + name;
+      orderInfo += "\nTelephone: " + number;
+      orderInfo += "\nAddress: " + address;
+      orderInfo += "\nPaid by: " + cardType + (cardType != "Cash" ? " number" + cardNumber : "");
+
       System.out.println("\n" + orderInfo + "\n");
    }
-   private static void displayErrors(String name) {
+   private static void displayErrors(String name, String number, String address, String mainString, String cardType, String cardNumber) {
       String missingInfo = "\nPlease complete:\n";
       if(name.equals("")) {
          missingInfo += "Name\n";
       }
+			if(number.equals("")) {
+         missingInfo += "Phone Number\n";
+      }
+			if(address.equals("")) {
+         missingInfo += "Address\n";
+      }
+			if(mainString.equals("")) {
+         missingInfo += "Auto Type Selection\n";
+      }
+			if(cardType.equals("")) {
+         missingInfo += "Card Type\n";
+      }
+			if(cardNumber.equals("")) {
+         missingInfo += "Card Number\n";
+      }
       System.out.println(missingInfo);
    }
-   private static boolean isOrderConplete(String name) {
+   private static boolean isOrderConplete(String name, String number, String address, String mainString, String cardType, String cardNumber) {
       boolean status = true;
-      if(name.equals("")) {
+      if(name.equals("") || number.equals("") || address.equals("") || mainString.equals("") || cardType.equals("") || cardNumber.equals("")) {
          status = false;
       }
       return status;
