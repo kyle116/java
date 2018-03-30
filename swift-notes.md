@@ -625,3 +625,24 @@ print("zero!")
 // 1...
 // zero!
 ```
+
+## Sorted Method
+Takes a function and works similarly to sort from JavaScript. It can be written this way
+```
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+func backward(_ s1: String, _ s2: String) -> Bool {
+    return s1 > s2
+}
+var reversedNames = names.sorted(by: backward)
+// reversedNames is equal to ["Ewa", "Daniella", "Chris", "Barry", "Alex"]
+```
+Or:
+```
+reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
+    return s1 > s2
+})
+```
+Or:
+```
+reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )
+``` 
