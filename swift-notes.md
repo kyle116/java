@@ -494,3 +494,134 @@ print(greet(person: "Tim", alreadyGreeted: true))
 // Prints "Hello again, Tim!"
 
 ```
+
+Returning a tuple from a function. Example of optional tuple (note the ? at the end of the return types). Will return nil if no values
+```
+func minMax(array: [Int]) -> (min: Int, max: Int)? {
+    if array.isEmpty { return nil }
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        } else if value > currentMax {
+            currentMax = value
+        }
+    }
+    return (currentMin, currentMax)
+}
+```
+
+### Labeled parameters for functions
+In the function, `hometown` is used when creating the function but `from` is used when calling the function
+```
+func greet(person: String, from hometown: String) -> String {
+    return "Hello \(person)!  Glad you could visit from \(hometown)."
+}
+print(greet(person: "Bill", from: "Cupertino"))
+// Prints "Hello Bill!  Glad you could visit from Cupertino."
+```
+
+If you don’t want an argument label for a parameter, write an underscore (`_`) instead of an explicit argument label for that parameter.
+```
+func someFunction(_ firstParameterName: Int, secondParameterName: Int) {
+    // In the function body, firstParameterName and secondParameterName
+    // refer to the argument values for the first and second parameters.
+}
+someFunction(1, secondParameterName: 2)
+```
+
+### Default parameters
+Place parameters that don’t have default values at the beginning of a function’s parameter list, before the parameters that have default values.
+```
+func someFunction(parameterWithoutDefault: Int, parameterWithDefault: Int = 12) {
+    // If you omit the second argument when calling this function, then
+    // the value of parameterWithDefault is 12 inside the function body.
+}
+someFunction(parameterWithoutDefault: 3, parameterWithDefault: 6) // parameterWithDefault is 6
+someFunction(parameterWithoutDefault: 4) // parameterWithDefault is 12
+```
+
+### Variadic Parameters
+A variadic parameter accepts zero or more values of a specified type. You use a variadic parameter to specify that the parameter can be passed a varying number of input values when the function is called. The values passed to a variadic parameter are made available within the function’s body as an array of the appropriate type.
+```
+func arithmeticMean(_ numbers: Double...) -> Double {
+    var total: Double = 0
+    for number in numbers {
+        total += number
+    }
+    return total / Double(numbers.count)
+}
+arithmeticMean(1, 2, 3, 4, 5)
+// returns 3.0, which is the arithmetic mean of these five numbers
+arithmeticMean(3, 8.25, 18.75)
+// returns 10.0, which is the arithmetic mean of these three numbers
+```
+
+### In-Out Parameters
+Function parameters are constants by default. inout parameters allows you to make changes to parameters. Declare this in the parameter before the parameter type
+```
+func swapTwoInts(_ a: inout Int, _ b: inout Int) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+```
+
+### Function as types
+This can be read as:
+“Define a variable called `mathFunction`, which has a type of a `function` that takes two `Int` values, and returns an `Int` value. Set this new variable to refer to the function called `addTwoInts`.”
+`var mathFunction: (Int, Int) -> Int = addTwoInts`
+
+You can also leave swift to infer the type for you
+```
+let anotherMathFunction = addTwoInts
+// anotherMathFunction is inferred to be of type (Int, Int) -> Int
+```
+
+### Function type as parameter type
+```
+func printMathResult(_ mathFunction: (Int, Int) -> Int, _ a: Int, _ b: Int) {
+    print("Result: \(mathFunction(a, b))")
+}
+printMathResult(addTwoInts, 3, 5)
+// Prints "Result: 8"
+```
+
+### Function type as return type
+```
+func stepForward(_ input: Int) -> Int {
+    return input + 1
+}
+func stepBackward(_ input: Int) -> Int {
+    return input - 1
+}
+```
+Here’s a function called `chooseStepFunction(backward:)`, whose return type is `(Int) -> Int`. The `chooseStepFunction(backward:)` function returns the `stepForward(_:)` function or the `stepBackward(_:)` function based on a Boolean parameter called backward:
+```
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    return backward ? stepBackward : stepForward
+}
+```
+You can now use `chooseStepFunction(backward:)` to obtain a function that will step in one direction or the other:
+```
+var currentValue = 3
+let moveNearerToZero = chooseStepFunction(backward: currentValue > 0)
+// moveNearerToZero now refers to the stepBackward() function
+```
+The example above determines whether a positive or negative step is needed to move a variable called `currentValue` progressively closer to zero. `currentValue` has an initial value of `3`, which means that `currentValue > 0` returns `true`, causing `chooseStepFunction(backward:)` to return the `stepBackward(_:)` function. A reference to the returned function is stored in a constant called `moveNearerToZero`.
+
+Now that `moveNearerToZero` refers to the correct function, it can be used to count to zero:
+```
+print("Counting to zero:")
+// Counting to zero:
+while currentValue != 0 {
+    print("\(currentValue)... ")
+    currentValue = moveNearerToZero(currentValue)
+}
+print("zero!")
+// 3...
+// 2...
+// 1...
+// zero!
+```
