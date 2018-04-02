@@ -645,4 +645,133 @@ reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
 Or:
 ```
 reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )
-``` 
+```
+
+
+## Closures
+### Capturing values
+```
+func makeIncrementer(forIncrement amount: Int) -> () -> Int {
+    var runningTotal = 0
+    func incrementer() -> Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}
+
+let incrementByTen = makeIncrementer(forIncrement: 10)
+
+incrementByTen()
+// returns a value of 10
+incrementByTen()
+// returns a value of 20
+incrementByTen()
+// returns a value of 30
+```
+
+### Closures Are Reference Types
+```
+let alsoIncrementByTen = incrementByTen
+alsoIncrementByTen()
+// returns a value of 40
+```
+
+### Keywords for closures
+`@autoclosure` and `@escaping`
+
+## Enumeration Syntax
+You introduce enumerations with the enum keyword and place their entire definition within a pair of braces:
+```
+enum SomeEnumeration {
+    // enumeration definition goes here
+}
+
+enum Barcode {
+    case upc(Int, Int, Int, Int)
+    case qrCode(String)
+}
+var productBarcode = Barcode.upc(8, 85909, 51226, 3)
+productBarcode = .qrCode("ABCDEFGHIJKLMNOP") // since productBarcode has already been defined as a Barcode, you can just do a .notation
+
+// use in a switch statement
+switch productBarcode {
+case let .upc(numberSystem, manufacturer, product, check):
+    print("UPC : \(numberSystem), \(manufacturer), \(product), \(check).")
+case let .qrCode(productCode):
+    print("QR code: \(productCode).")
+}
+```
+
+### Enumeration raw values
+```
+enum Planet: Int {
+    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+}
+enum CompassPoint: String {
+    case north, south, east, west
+}
+
+let earthsOrder = Planet.earth.rawValue
+// earthsOrder is 3
+
+let sunsetDirection = CompassPoint.west.rawValue
+// sunsetDirection is "west"
+```
+Trying to access enumeration raw values that do not exist:
+```
+let positionToFind = 11
+if let somePlanet = Planet(rawValue: positionToFind) {
+    switch somePlanet {
+    case .earth:
+        print("Mostly harmless")
+    default:
+        print("Not a safe place for humans")
+    }
+} else {
+    print("There isn't a planet at position \(positionToFind)")
+}
+// Prints "There isn't a planet at position 11"
+```
+
+### Recursive Enumerations
+You indicate that an enumeration case is recursive by writing `indirect` before it, which tells the compiler to insert the necessary layer of indirection.
+```
+enum ArithmeticExpression {
+    case number(Int)
+    indirect case addition(ArithmeticExpression, ArithmeticExpression)
+    indirect case multiplication(ArithmeticExpression, ArithmeticExpression)
+}
+```
+Or
+```
+indirect enum ArithmeticExpression {
+    case number(Int)
+    case addition(ArithmeticExpression, ArithmeticExpression)
+    case multiplication(ArithmeticExpression, ArithmeticExpression)
+}
+```
+
+Example:
+```
+let five = ArithmeticExpression.number(5)
+let four = ArithmeticExpression.number(4)
+let sum = ArithmeticExpression.addition(five, four)
+let product = ArithmeticExpression.multiplication(sum, ArithmeticExpression.number(2))
+```
+
+## Classes and Structures
+Declaring a class and structure:
+```
+class SomeClass {
+    // class definition goes here
+}
+struct SomeStructure {
+    // structure definition goes here
+}
+```
+
+Initialization:
+```
+let vga = Resolution(width: 640, height: 480)
+```
