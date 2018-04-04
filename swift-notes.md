@@ -481,7 +481,7 @@ if #available(iOS 10, macOS 10.12, *) {
 The availability condition above specifies that in iOS, the body of the if statement executes only in iOS 10 and later; in macOS, only in macOS 10.12 and later. The last argument, `*` , is required and specifies that on any other platform, the body of the if executes on the minimum deployment target specified by your target.
 
 ## Functions
-All functions are prefixed with `func`. After the `->` is the function's return type. Functions are not required to have return values therefore if there is not return, just remove the `->` and type after
+All functions are prefixed with `func`. After the `->` is the function's return type. Functions are not required to have return values therefore if there is not return, just remove the `->` and type after. Functions and methods with no return type have an implicit return type of `Void`. This means that they return a value of `()`, or an empty tuple.
 ```
 func greet(person: String, alreadyGreeted: Bool) -> String {
     if alreadyGreeted {
@@ -846,7 +846,7 @@ Getter and Setter methods.
 A computed property with a getter but no setter is known as a read-only computed property.
 
 ## Type Property
-You define type properties with the static keyword. For computed type properties for class types, you can use the class keyword instead to allow subclasses to override the superclass’s implementation. The example below shows the syntax for stored and computed type properties:
+You define type properties with the `static` keyword. For computed type properties for class types, you can use the class keyword instead to allow subclasses to override the superclass’s implementation. The example below shows the syntax for stored and computed type properties:
 ```
 struct SomeStructure {
     static var storedTypeProperty = "Some value."
@@ -909,6 +909,56 @@ struct Point {
     var x = 0.0, y = 0.0
     mutating func moveBy(x deltaX: Double, y deltaY: Double) {
         self = Point(x: x + deltaX, y: y + deltaY)
+    }
+}
+```
+## Initialization and deinitialization
+```
+class Player {
+    var coinsInPurse: Int
+    init(coins: Int) {
+        coinsInPurse = Bank.distribute(coins: coins)
+    }
+    func win(coins: Int) {
+        coinsInPurse += Bank.distribute(coins: coins)
+    }
+    deinit {
+        Bank.receive(coins: coinsInPurse)
+    }
+}
+
+var playerOne: Player? = Player(coins: 100)
+print("A new player has joined the game with \(playerOne!.coinsInPurse) coins")
+// Prints "A new player has joined the game with 100 coins"
+print("There are now \(Bank.coinsInBank) coins left in the bank")
+// Prints "There are now 9900 coins left in the bank"
+
+playerOne = nil
+print("PlayerOne has left the game")
+// Prints "PlayerOne has left the game"
+print("The bank now has \(Bank.coinsInBank) coins")
+// Prints "The bank now has 10000 coins"
+```
+The player has now left the game. This is indicated by setting the optional `playerOne` variable to `nil`, meaning “no Player instance.” At the point that this happens, the `playerOne` variable’s reference to the Player instance is broken. No other properties or variables are still referring to the Player instance, and so it is deallocated in order to free up its memory. Just before this happens, its deinitializer is called automatically, and its coins are returned to the bank.
+
+## Setting a property with closure or function
+The `boardColors` array is created due to the parentheses after the closure `{}()`
+```
+struct Chessboard {
+    let boardColors: [Bool] = {
+        var temporaryBoard = [Bool]()
+        var isBlack = false
+        for i in 1...8 {
+            for j in 1...8 {
+                temporaryBoard.append(isBlack)
+                isBlack = !isBlack
+            }
+            isBlack = !isBlack
+        }
+        return temporaryBoard
+    }()
+    func squareIsBlackAt(row: Int, column: Int) -> Bool {
+        return boardColors[(row * 8) + column]
     }
 }
 ```
