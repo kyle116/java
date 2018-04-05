@@ -89,3 +89,66 @@ func FirstReverse(_ str: String) -> String {
 Things learned:
 `for i in (str).reversed()` to loop through reversed or decreasing
 `String(i)` to convert `String.element (Character)` to `String` and allow it to be concatenated to the string
+
+### Letter Changes
+Have the function LetterChanges(str) take the str parameter being passed and modify it using the following algorithm. Replace every letter in the string with the letter following it in the alphabet (ie. c becomes d, z becomes a). Then capitalize every vowel in this new string (a, e, i, o, u) and finally return this modified string.
+```
+Input:"hello*3"
+Output:"Ifmmp*3"
+
+Input:"fun times!"
+Output:"gvO Ujnft!"
+```
+```
+Incorrect
+func LetterChanges(_ str: String) -> String {
+
+  // code goes here   
+  // Note: feel free to modify the return type of this function
+  var retStr = ""
+  let vowels = ["a", "e", "i", "o", "u"]
+  for i in str {
+      if i == " " {
+        retStr = retStr + " "
+      } else if i == "z" {
+        retStr = retStr + String("A")
+      } else {
+        retStr = retStr + (vowels.contains(String(UnicodeScalar(UInt8(UnicodeScalar(String(i).lowercased())!.value + 1)))) ? String(UnicodeScalar(UInt8(UnicodeScalar(String(i).lowercased())!.value + 1))).uppercased() : String(UnicodeScalar(UInt8(UnicodeScalar(String(i).lowercased())!.value + 1))))
+      }
+  }
+  print(str)
+  return retStr
+
+}
+```
+
+```
+func LetterChanges(_ str: String) -> String {
+    let arrChars = str.map { c -> Character in
+        if let t = c.unicodeScalars.first?.value {
+            var nextIndex: UInt32
+            if (t > 64 && t < 90) || (t > 96 && t < 122) {
+                nextIndex = t + 1
+            } else {
+                if t == 90 || t == 122 {
+                    nextIndex = t - 25 // Z->A, z->a
+                } else {
+                    nextIndex = t
+                }
+            }
+
+            switch nextIndex {
+            case 97, 101, 105, 111, 117: // a,e,i,o,u
+                return Character(UnicodeScalar(nextIndex - 32)!) // uppercase
+            default:
+                return Character(UnicodeScalar(nextIndex)!)
+            }
+        } else {
+            return c
+        }
+    }
+
+    return String(arrChars)
+
+}
+```
