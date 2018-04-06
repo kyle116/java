@@ -60,8 +60,8 @@ if let actualNumber = Int(possibleNumber) {
 ```
 
 ## Nil-Coalescing Operator
-The double question mark (double ??) Operator.
-The nil-coalescing operator (a ?? b) unwraps an optional a if it contains a value, or returns a default value b if a is nil. The expression a is always of an optional type. The expression b must match the type that is stored inside a.
+The double question mark (double `??`) Operator.
+The nil-coalescing operator (`a ?? b`) unwraps an optional a if it contains a value, or returns a default value b if a is nil. The expression a is always of an optional type. The expression `b` must match the type that is stored inside `a`.
 `(a ?? b)` is the same as `a != nil ? a! : b`
 
 
@@ -912,6 +912,21 @@ struct Point {
     }
 }
 ```
+
+## Override methods from other classes
+As you can see in the `ViewController.swift` file, the template’s implementation overrides both the `viewDidLoad()` and `didReceiveMemoryWarning()` methods using the `override` key word
+```
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    // didReceiveMemoryWarning() method not shown
+}
+```
+
 ## Initialization and deinitialization
 ```
 class Player {

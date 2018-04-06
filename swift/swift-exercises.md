@@ -30,7 +30,8 @@ func accum(_ s: String) -> String {
 }
 ```
 
-Things learned:\n
+Things learned:
+
 `var str = "string"`
 String to array: `Array(str)`
 Upper and lower case: `str.lowercased()` or `str.uppercased()`
@@ -71,6 +72,7 @@ func FirstFactorial(_ num: Int) -> Int {
 ```
 
 Things learned:
+
 `guard` to see if the num is still greater than 1, if not return 1 and stop the function
 
 
@@ -87,7 +89,9 @@ func FirstReverse(_ str: String) -> String {
 }
 ```
 Things learned:
+
 `for i in (str).reversed()` to loop through reversed or decreasing
+
 `String(i)` to convert `String.element (Character)` to `String` and allow it to be concatenated to the string
 
 ### Letter Changes
@@ -152,3 +156,23 @@ func LetterChanges(_ str: String) -> String {
 
 }
 ```
+
+### Functional Addition
+Create a function add(n)/Add(n) which returns a function that always adds n to any number
+```
+func add(_ n: Int) -> ((Int) -> Int) {
+  return { return $0 + n }
+}
+// Or
+func add(_ n: Int) -> ((Int) -> Int) {
+  func retAdd(_ a: Int) -> Int {
+    return n + a
+  }
+  return retAdd
+}
+```
+Things learned:
+
+`$0` Dollar sign followed by number is short hand to refer to which argument so `$0` will refer to the first argument
+
+Returning a function can be returned by returning the name of the function or returning code enclosed in `{}` brackets
