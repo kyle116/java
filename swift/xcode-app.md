@@ -26,3 +26,26 @@ All the labels, buttons etc. are all subviews under a superview
 Highlight multiple labels, buttons, text fields allows you to stack them together with the bottom right corner button
 
 Debugging Auto Layout, check the Resolve Auto Layout Issues in the bottom right corner
+
+## Connections to UI explained
+```
+@IBOutlet weak var nameTextField: UITextField!
+```
+`IBOutlet` attribute tells Xcode that you can connect to the `nameTextField` property from Interface Builder (which is why the attribute has the IB prefix).
+
+`weak` keyword indicates that the reference does not prevent the system from deallocating the referenced object
+
+The rest of the declaration defines an `implicitly unwrapped optional` variable of type `UITextField` named `nameTextField`
+
+
+## Delegate
+A delegate is an object that acts on behalf of, or in coordination with, another object.
+
+## Removing keyboard after hitting return
+```
+func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    // Hide the keyboard.
+    textField.resignFirstResponder() // textField being the name of the input for typing
+    return true
+}
+```
