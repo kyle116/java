@@ -25,4 +25,7 @@ All the labels, buttons etc. are all subviews under a superview
 
 Highlight multiple labels, buttons, text fields allows you to stack them together with the bottom right corner button
 
+## Debugging Auto Layout
 Debugging Auto Layout, check the Resolve Auto Layout Issues in the bottom right corner
+
+If you are getting warnings about misplaced views, use the Update Frames button
