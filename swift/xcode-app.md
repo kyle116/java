@@ -73,9 +73,52 @@ Pass data between view controllers
 
 Dismiss a view controller
 
-Use gesture recognizers to generate events
+**Use gesture recognizers to generate events**
+Go to the object library and type in `tap gesture` then drag and place over the object you want with a tap gesture
 
-Anticipate object behavior based on the UIView/UIControl class hierarchy
+On the scene dock, top of the storyboard, you will see it appear. Control drag from here to your code to create connection.
+
+Need to add `UIImagePickerControllerDelegate` and `UINavigationControllerDelegate` to the `ViewController` class
+```
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+```
+Setting up the function in our code should look like this:
+```
+@IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
+
+    // Hide the keyboard. This code ensures that if the user taps the image view while typing in the text field, the keyboard is dismissed properly.
+    nameTextField.resignFirstResponder()
+
+    // UIImagePickerController is a view controller that lets a user pick media from their photo library.
+    let imagePickerController = UIImagePickerController()
+
+    // Only allow photos to be picked, not taken. The type of imagePickerController.sourceType is known to be UIImagePickerControllerSourceType, which is an enumeration. This means you can write its value as the abbreviated form .photoLibrary instead of UIImagePickerControllerSourceType.photoLibrary. Recall that you can use the abbreviated form anytime the enumeration value’s type is already known.
+    imagePickerController.sourceType = .photoLibrary
+
+    // Make sure ViewController is notified when the user picks an image.
+    imagePickerController.delegate = self
+    present(imagePickerController, animated: true, completion: nil)
+}
+```
+
+To select or cancel image selection from camera roll
+```
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+
+    // The info dictionary may contain multiple representations of the image. You want to use the original.
+    guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+        fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+    }
+
+    // Set photoImageView to display the selected image.
+    photoImageView.image = selectedImage
+
+    // Dismiss the picker.
+    dismiss(animated: true, completion: nil)
+}
+```
+Then you have to go to the `Info.plist` file and add in `Privacy - Photo Library Usage Description`. `Type` is set to `String`. Then, double-click on the `Value` section and enter `Allows you to add photos to your meals`
+
 
 **Use the asset catalog to add image assets to a project**
 In the project navigator, select Assets.xcassets to view the asset catalog.
@@ -91,3 +134,33 @@ In your storyboard, select the image view.
 With the image view selected, open the Attributes inspector image in the utility area.
 
 In the Attributes inspector, find the field labeled Image and select the photo.
+
+## To create a subclass of UIStackView
+
+1. Choose File > New > File (or press Command-N).
+
+2. At the top of the dialog that appears, select iOS.
+
+3. Select Cocoa Touch Class, and click Next.
+
+4. In the Class field, type RatingControl.
+
+5. In the “Subclass of” field, select UIStackView.
+
+6. Make sure the Language option is set to Swift.
+
+7. Click Next.
+
+The save location defaults to your project directory.
+
+The Group option defaults to your app name, FoodTracker.
+
+In the Targets section, your app is selected and the tests for your app are unselected.
+
+8. Leave these defaults as they are, and click Create.
+
+Xcode creates a file that defines the RatingControl class: RatingControl.swift. RatingControl is a custom view subclass of UIView.
+
+9. If necessary, in the Project navigator, drag the RatingControl.swift file so that it’s positioned under the other Swift files.
+
+10. In `RatingControl.swift`, delete the comments that come with the template implementation so you can start working with a blank slate.
