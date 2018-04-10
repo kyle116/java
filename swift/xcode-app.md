@@ -44,6 +44,14 @@ The rest of the declaration defines an `implicitly unwrapped optional` variable 
 ## Delegate
 A delegate is an object that acts on behalf of, or in coordination with, another object.
 
+```
+// Handle the text field’s user input through delegate callbacks.
+nameTextField.delegate = self
+```
+The self refers to the ViewController class, because it’s referenced inside the scope of the ViewController class definition.
+You can add your own comments to help you understand what’s happening in your code.
+When a ViewController instance is loaded, it sets itself as the delegate of its nameTextField property.
+
 ## Removing keyboard after hitting return
 ```
 func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -57,7 +65,7 @@ func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 ## Understand the view controller life cycle and its callbacks (for example, viewDidLoad, viewWillAppear and viewDidAppear)
 An object of the UIViewController class (and its subclasses) comes with a set of methods that manage its view hierarchy. iOS automatically calls these methods at appropriate times when a view controller transitions between states. When you create a view controller subclass (like the ViewController class you’ve been working with), it inherits the methods defined in UIViewController and lets you add your own custom behavior for each method
 
-*view controller Life Cycle*
+**view controller Life Cycle**
 ![](https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Art/WWVC_vclife_2x.png?raw=true)
 
 
@@ -69,4 +77,17 @@ Use gesture recognizers to generate events
 
 Anticipate object behavior based on the UIView/UIControl class hierarchy
 
-Use the asset catalog to add image assets to a project
+**Use the asset catalog to add image assets to a project**
+In the project navigator, select Assets.xcassets to view the asset catalog.
+
+The asset catalog is a place to store and organize your image assets for an app. In the bottom left, there is a + button to add files to folder
+
+**To display a default image in the image view**
+
+Open your storyboard.
+
+In your storyboard, select the image view.
+
+With the image view selected, open the Attributes inspector image in the utility area.
+
+In the Attributes inspector, find the field labeled Image and select the photo.
