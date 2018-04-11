@@ -5,8 +5,7 @@ public class ProjectEint_v2 {
       String number="";
       String address="";
       String missingInfo="";
-      String mainInput, customerInput, cardInput;
-			int mainSelection, optSelection;
+      String mainInput, customerInput, cardInput, mainSelection, optSelection;
 			double total = 0;
 			double mainPrice = 0;
 			String mainString = "";
@@ -33,58 +32,82 @@ public class ProjectEint_v2 {
             } while(!(customerInput.equals("4")));
          } else if (mainInput.equals("2")) {
 					 displayMainSelectionMenu();
-					 mainSelection = keyboard.nextInt();
-			 		 switch(mainSelection) {
-		 			   case 1: total -= mainPrice; // If customer selects "2" a second time, will clear out previous selection
-						 				 mainString = "";
-						 			 	 mainPrice = 23.99;
-						 				 mainString = "Economy ($23.99)\n";
-		 				 				 break;
-		 				 case 2: total -= mainPrice;
-										 mainString = "";
-										 mainPrice = 39.99;
-						 				 mainString = "Compact ($39.99)\n";
-		 				  			 break;
-		 				 case 3: total -= mainPrice;
-										 mainString = "";
-										 mainPrice = 49.99;
-						 				 mainString = "Standard ($49.99)\n";
-		 				  			 break;
-		 				 case 4: total -= mainPrice;
-										 mainString = "";
-										 mainPrice = 79.99;
-						 				 mainString = "Premium ($79.99)\n";
-		 			  				 break;
-		 	 			 case 5: break;
-			 		 }
-					 total += mainPrice;
+                do {
+                  mainSelection = keyboard.nextLine();
+                  if(mainSelection.equals("1")) {
+                     total -= mainPrice; // If customer selects "2" a second time, will clear out previous selection
+                     mainString = "";
+                     mainPrice = 23.99;
+                     mainString = "Economy ($23.99)\n";
+                  } else if(mainSelection.equals("2")) {
+                     total -= mainPrice;
+                     mainString = "";
+                     mainPrice = 39.99;
+                     mainString = "Compact ($39.99)\n";
+                  } else if(mainSelection.equals("3")) {
+                     total -= mainPrice;
+                     mainString = "";
+                     mainPrice = 49.99;
+                     mainString = "Standard ($49.99)\n";
+                  } else if(mainSelection.equals("4")) {
+                     total -= mainPrice;
+                     mainString = "";
+                     mainPrice = 79.99;
+                     mainString = "Premium ($79.99)\n";
+                  }
+                  total += mainPrice;
+                } while(!(mainSelection.equals("5")));
+					 
          } else if (mainInput.equals("3")) {
 					 displayOptionsMenu();
 		 			 do {
-			 				optSelection = keyboard.nextInt();
+			 				optSelection = keyboard.next();
 							optionCount++;
-			 				switch(optSelection) {
-			 					case 1: optPrice += 99.99;
-												optString += "Insurance ($99.99)\n";
-			 									break;
-			 					case 2: optPrice += 14.99;
-												optString += "GPS ($14.99)\n";
-			 									break;
-			 					case 3: optPrice += 9.99;
-												optString += "XM Radio ($9.99)\n";
-			 									break;
-			 					case 4: optPrice += 19.99;
-												optString += "Child Seat ($19.99)\n";
-			 									break;
-			 					case 5: optPrice += 39.99;
-												optString += "Full Tank of Gas ($39.99)\n";
-			 									break;
-			 					case 6: optString = "";
-												optPrice = 0;
-			 									break;
-			 					case 7: break;
-			 				}
-		 			 } while(optSelection != 7);
+                     if(optSelection.equals("1")) {
+                        optPrice += 99.99;
+                        optString += "Insurance ($99.99)\n";
+                     } else if(optSelection.equals("2")) {
+                        optPrice += 14.99;
+								optString += "GPS ($14.99)\n";
+
+                     } else if(optSelection.equals("3")) {
+                        optPrice += 9.99;
+								optString += "XM Radio ($9.99)\n";
+
+                     } else if(optSelection.equals("4")) {
+                        optPrice += 19.99;
+								optString += "Child Seat ($19.99)\n";
+
+                     } else if(optSelection.equals("5")) {
+                        optPrice += 39.99;
+								optString += "Full Tank of Gas ($39.99)\n";
+
+                     } else if(optSelection.equals("6")) {
+                        optString = "";
+								optPrice = 0;
+                     }
+			 				// switch(optSelection) {
+// 			 					case 1: optPrice += 99.99;
+// 												optString += "Insurance ($99.99)\n";
+// 			 									break;
+// 			 					case 2: optPrice += 14.99;
+// 												optString += "GPS ($14.99)\n";
+// 			 									break;
+// 			 					case 3: optPrice += 9.99;
+// 												optString += "XM Radio ($9.99)\n";
+// 			 									break;
+// 			 					case 4: optPrice += 19.99;
+// 												optString += "Child Seat ($19.99)\n";
+// 			 									break;
+// 			 					case 5: optPrice += 39.99;
+// 												optString += "Full Tank of Gas ($39.99)\n";
+// 			 									break;
+// 			 					case 6: optString = "";
+// 												optPrice = 0;
+// 			 									break;
+// 			 					case 7: break;
+// 			 				}
+		 			 } while(!(optSelection.equals("7")));
 					total += optPrice;
          } else if (mainInput.equals("4")) {
 					 do {
@@ -92,11 +115,11 @@ public class ProjectEint_v2 {
 							cardInput = keyboard.nextLine();
 							if(cardInput.equals("1")) {
 								cardType = "Visa";
-								System.out.print("Please enter your card number:");
+								System.out.print("Please enter your card number: ");
 								cardNumber = keyboard.nextLine();
 							} else if(cardInput.equals("2")) {
 								cardType = "MasterCard";
-								System.out.print("Please enter your card number");
+								System.out.print("Please enter your card number: ");
 								cardNumber = keyboard.nextLine();
 							} else if(cardInput.equals("3")) {
 								cardType = "Cash";
@@ -157,7 +180,7 @@ public class ProjectEint_v2 {
       System.out.println("1. Economy ($23.99)\n" +
                          "2. Compact ($39.99)\n" +
                          "3. Standard ($49.99)\n" +
-												 "4. Premium ($79.99)\n" +
+								 "4. Premium ($79.99)\n" +
                          "5. Main Menu\n");
       System.out.print("\nMake your selection(1-5): ");
    }
@@ -201,7 +224,7 @@ public class ProjectEint_v2 {
       orderInfo += "\nAddress: " + address;
       orderInfo += "\nPaid by: " + cardType + (cardType != "Cash" ? " number" + cardNumber : "");
 
-      System.out.println("\n" + orderInfo + "\n");
+      System.out.println("\n" + orderInfo + "\n\n");
    }
    private static void displayErrors(String name, String number, String address, String mainString, String cardType, String cardNumber) {
       String missingInfo = "\nPlease complete:\n";
@@ -227,7 +250,9 @@ public class ProjectEint_v2 {
    }
    private static boolean isOrderConplete(String name, String number, String address, String mainString, String cardType, String cardNumber) {
       boolean status = true;
-      if(name.equals("") || number.equals("") || address.equals("") || mainString.equals("") || cardType.equals("") || cardNumber.equals("")) {
+      if(name.equals("") || number.equals("") || address.equals("") || mainString.equals("") || cardType.equals("")) {
+         status = false;
+      } else if((cardType.equals("Visa") && cardNumber.equals("")) || (cardType.equals("Mastercard") && cardNumber.equals(""))) {
          status = false;
       }
       return status;
