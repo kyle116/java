@@ -69,7 +69,7 @@ public class ProjectEint_v2 {
                      } else if(optSelection.equals("2")) {
                         optPrice += 14.99;
 								optString += "GPS ($14.99)\n";
-
+ 
                      } else if(optSelection.equals("3")) {
                         optPrice += 9.99;
 								optString += "XM Radio ($9.99)\n";
