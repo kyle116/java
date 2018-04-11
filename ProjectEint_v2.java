@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class ProjectEint_v2 {
     public static void main(String[] args) {
+        // Initial Variables
         String name="";
         String number="";
         String address="";
@@ -15,9 +16,11 @@ public class ProjectEint_v2 {
         String cardType = "";
         String cardNumber = "";
         Scanner keyboard = new Scanner(System.in);
+        // Loop for Main Menu Selection
         do {
             displayMainMenu();
             mainInput = keyboard.nextLine();
+            // Customer Information
             if(mainInput.equals("1")) {
                 do {
                     displayCustomerMenu();
@@ -31,11 +34,13 @@ public class ProjectEint_v2 {
                     }
                 } while(!(customerInput.equals("4")));
             } else if (mainInput.equals("2")) {
+                // Main Selection
                 displayMainSelectionMenu();
                 do {
-                    mainSelection = keyboard.nextLine();
+                    mainSelection = keyboard.next();
+                    // If user selects another main selection option, it will be subtracted from the total to prevent miscounting
                     if(mainSelection.equals("1")) {
-                        total -= mainPrice; // If customer selects "2" a second time, will clear out previous selection
+                        total -= mainPrice;
                         mainString = "";
                         mainPrice = 23.99;
                         mainString = "Economy ($23.99)\n";
@@ -59,6 +64,7 @@ public class ProjectEint_v2 {
                 } while(!(mainSelection.equals("5")));
 
             } else if (mainInput.equals("3")) {
+                // Options
                 displayOptionsMenu();
                 double optPrice1 = 99.99;
                 String optString1 = "Insurance ($99.99)\n";
@@ -72,6 +78,7 @@ public class ProjectEint_v2 {
                 String optString5 = "Full Tank of Gas ($39.99)\n";
                 do {
                     optSelection = keyboard.next();
+                    // To avoid repeate option selection, after option is selected, price and string of that option will become 0 and empty string
                     if(optSelection.equals("1")) {
                         optPrice += optPrice1;
                         optString += optString1;
@@ -109,6 +116,7 @@ public class ProjectEint_v2 {
                 } while(!(optSelection.equals("7")));
                 total += optPrice;
             } else if (mainInput.equals("4")) {
+                // Payment Mehtod
                 do {
                     displayPaymentsMenu();
                     cardInput = keyboard.nextLine();
@@ -125,6 +133,7 @@ public class ProjectEint_v2 {
                     }
                 } while(!(cardInput.equals("4")));
             } else if(mainInput.equals("5")) {
+                // Display Order Confirmation
                 if(isOrderConplete(name, number, address, mainString, cardType, cardNumber)) {
                     displayOrder(name, number, address, total, mainString, optString, optionCount, cardType, cardNumber);
                 } else {
@@ -133,7 +142,7 @@ public class ProjectEint_v2 {
             }
         } while(!(mainInput.equals("6")));
     }
-
+    // Menus
     private static String getName() {
         String name = "";
         Scanner keyboard = new Scanner(System.in);
@@ -212,9 +221,11 @@ public class ProjectEint_v2 {
         }
         return giftString;
     }
+    // Displays order
     private static void displayOrder(String name, String number, String address, double total, String mainSelection, String optSelection, int optionCount, String cardType, String cardNumber) {
         String orderInfo = "You have placed an order for: \n";
         orderInfo = orderInfo + mainSelection + "With the following options:\n" + optSelection;
+        // Calculates total with tax
         orderInfo += "\nTotal price: $" + ((double) Math.round(total * 1.0975 * 100)/100) + "\n\n";
         orderInfo += optionCount > 1 ? "Congratulations. You will get the following free gift with your order:\n" + (getGift(optionCount)) : "";
         orderInfo += "\nSold to: " + name;
@@ -224,6 +235,7 @@ public class ProjectEint_v2 {
 
         System.out.println("\n" + orderInfo + "\n\n");
     }
+    // Error display message
     private static void displayErrors(String name, String number, String address, String mainString, String cardType, String cardNumber) {
         String missingInfo = "\nPlease complete:\n";
         if(name.equals("")) {
@@ -246,11 +258,13 @@ public class ProjectEint_v2 {
         }
         System.out.println(missingInfo);
     }
+    // Checks if there order is complete
     private static boolean isOrderConplete(String name, String number, String address, String mainString, String cardType, String cardNumber) {
         boolean status = true;
         if(name.equals("") || number.equals("") || address.equals("") || mainString.equals("") || cardType.equals("")) {
             status = false;
         } else if((cardType.equals("Visa") && cardNumber.equals("")) || (cardType.equals("Mastercard") && cardNumber.equals(""))) {
+            // If Visa or Mastercard is selected and card number is blank, error. Cash will not care for card nummber
             status = false;
         }
         return status;
