@@ -136,6 +136,7 @@ With the image view selected, open the Attributes inspector image in the utility
 In the Attributes inspector, find the field labeled Image and select the photo.
 
 ## To create a subclass of UIStackView
+This is when you want a custom view
 
 1. Choose File > New > File (or press Command-N).
 
@@ -164,3 +165,16 @@ Xcode creates a file that defines the RatingControl class: RatingControl.swift. 
 9. If necessary, in the Project navigator, drag the RatingControl.swift file so that it’s positioned under the other Swift files.
 
 10. In `RatingControl.swift`, delete the comments that come with the template implementation so you can start working with a blank slate.
+
+
+## To display the view
+
+1. Open your storyboard.
+
+2. In your storyboard, use the Object library to find a Horizontal Stack View object, and drag one into your storyboard scene so that it’s in the stack view below the image view.
+
+3. With the horizontal stack view selected, open the Identity inspector image.
+
+Recall that the Identity inspector lets you edit properties of an object in your storyboard related to that object’s identity, such as what class the object belongs to.
+
+4. In the Identity inspector, find the field labeled Class and select RatingControl.
