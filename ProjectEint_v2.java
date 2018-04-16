@@ -78,7 +78,7 @@ public class ProjectEint_v2 {
                 String optString5 = "Full Tank of Gas ($39.99)\n";
                 do {
                     optSelection = keyboard.next();
-                    // To avoid repeate option selection, after option is selected, price and string of that option will become 0 and empty string
+                    // To avoid repeat option selection, after option is selected, price and string of that option will become 0 and empty string
                     if(optSelection.equals("1")) {
                         optPrice += optPrice1;
                         optString += optString1;
@@ -110,6 +110,7 @@ public class ProjectEint_v2 {
                         optPrice5 = 0;
                         optString5 = "";
                     } else if(optSelection.equals("6")) {
+                        // This will clear any options
                         optString = "";
                         optPrice = 0;
                     }
