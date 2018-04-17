@@ -178,3 +178,68 @@ Xcode creates a file that defines the RatingControl class: RatingControl.swift. 
 Recall that the Identity inspector lets you edit properties of an object in your storyboard related to that object’s identity, such as what class the object belongs to.
 
 4. In the Identity inspector, find the field labeled Class and select RatingControl.
+
+
+## Data Models
+
+### Creating data models
+1. Choose File > New > File (or press Command-N).
+
+2. At the top of the dialog that appears, select iOS.
+
+3. Select Swift File, and click Next.
+
+You’re using a different process to create this class than the RatingControl class you created earlier (iOS > Source > Cocoa Touch Class), because you’re defining a base class for your data model, which means it doesn’t need to inherit from any other classes.
+
+4. In the Save As field, type Meal.
+
+5. The save location defaults to your project directory.
+
+The Group option defaults to your app name, FoodTracker.
+
+In the Targets section, your app is selected and the tests for your app are unselected.
+
+6. Leave these defaults as they are, and click Create.
+
+Example of class:
+```
+import UIKit
+class Meal {
+
+    //MARK: Properties
+
+    var name: String
+    var photo: UIImage?
+    var rating: Int
+
+    init?(name: String, photo: UIImage?, rating: Int) {
+
+      // Initialization should fail if there is no name or if the rating is negative.
+      if name.isEmpty || rating < 0  {
+          return nil
+      }
+
+      // Initialize stored properties.
+      self.name = name
+      self.photo = photo
+      self.rating = rating
+
+    }  
+}
+```
+
+## Writing tests
+Navigate to the tests file in the tests folder generated
+
+Deleting the template functions in the file, and adding your own tests:
+```
+func testMealInitializationSucceeds() {
+  // Zero rating
+  let zeroRatingMeal = Meal.init(name: "Zero", photo: nil, rating: 0)
+  XCTAssertNotNil(zeroRatingMeal)
+
+  // Highest positive rating
+  let positiveRatingMeal = Meal.init(name: "Positive", photo: nil, rating: 5)
+  XCTAssertNotNil(positiveRatingMeal)
+}
+```
