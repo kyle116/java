@@ -1,121 +1,121 @@
 import java.util.Scanner;
 public class ProjectEint_v2 {
-    public static void main(String[] args) {
-        // Initial Variables
-        String name="";
-        String number="";
-        String address="";
-        String missingInfo="";
-        String mainInput, customerInput, cardInput, mainSelection, optSelection;
-        double total = 0;
-        double mainPrice = 0;
-        String mainString = "";
-        double optPrice = 0;
-        String optString = "";
-        int optionCount = 0;
-        String cardType = "";
-        String cardNumber = "";
-        Scanner keyboard = new Scanner(System.in);
-        // Loop for Main Menu Selection
-        do {
-            displayMainMenu();
-            mainInput = keyboard.nextLine();
-            // Customer Information
-            if(mainInput.equals("1")) {
-                do {
-                    displayCustomerMenu();
-                    customerInput = keyboard.nextLine();
-                    if(customerInput.equals("1")) {
-                        name = getName();
-                    } else if(customerInput.equals("2")) {
-                        number = getNumber();
-                    } else if(customerInput.equals("3")) {
-                        address = getAddress();
-                    }
-                } while(!(customerInput.equals("4")));
-            } else if (mainInput.equals("2")) {
-                // Main Selection
-                displayMainSelectionMenu();
-                do {
-                    mainSelection = keyboard.next();
-                    // If user selects another main selection option, it will be subtracted from the total to prevent miscounting
-                    if(mainSelection.equals("1")) {
-                        total -= mainPrice;
-                        mainString = "";
-                        mainPrice = 23.99;
-                        mainString = "Economy ($23.99)\n";
-                    } else if(mainSelection.equals("2")) {
-                        total -= mainPrice;
-                        mainString = "";
-                        mainPrice = 39.99;
-                        mainString = "Compact ($39.99)\n";
-                    } else if(mainSelection.equals("3")) {
-                        total -= mainPrice;
-                        mainString = "";
-                        mainPrice = 49.99;
-                        mainString = "Standard ($49.99)\n";
-                    } else if(mainSelection.equals("4")) {
-                        total -= mainPrice;
-                        mainString = "";
-                        mainPrice = 79.99;
-                        mainString = "Premium ($79.99)\n";
-                    }
-                    total += mainPrice;
-                } while(!(mainSelection.equals("5")));
+   public static void main(String[] args) {
+      // Initial Variables
+      String name="";
+      String number="";
+      String address="";
+      String missingInfo="";
+      String mainInput, customerInput, cardInput, mainSelection, optSelection;
+      double total = 0;
+      double mainPrice = 0;
+      String mainString = "";
+      double optPrice = 0;
+      String optString = "";
+      int optionCount = 0;
+      String cardType = "";
+      String cardNumber = "";
+      Scanner keyboard = new Scanner(System.in);
+      // Loop for Main Menu Selection
+      do {
+         displayMainMenu();
+         mainInput = keyboard.nextLine();
+         // Customer Information
+         if(mainInput.equals("1")) {
+            do {
+               displayCustomerMenu();
+               customerInput = keyboard.nextLine();
+               if(customerInput.equals("1")) {
+                  name = getName();
+               } else if(customerInput.equals("2")) {
+                  number = getNumber();
+               } else if(customerInput.equals("3")) {
+                  address = getAddress();
+               }
+            } while(!(customerInput.equals("4")));
+         } else if (mainInput.equals("2")) {
+            // Main Selection
+            displayMainSelectionMenu();
+            do {
+               mainSelection = keyboard.next();
+               // If user selects another main selection option, it will be subtracted from the total to prevent miscounting
+               if(mainSelection.equals("1")) {
+                  total -= mainPrice;
+                  mainString = "";
+                  mainPrice = 23.99;
+                  mainString = "Economy ($23.99)\n";
+               } else if(mainSelection.equals("2")) {
+                  total -= mainPrice;
+                  mainString = "";
+                  mainPrice = 39.99;
+                  mainString = "Compact ($39.99)\n";
+               } else if(mainSelection.equals("3")) {
+                  total -= mainPrice;
+                  mainString = "";
+                  mainPrice = 49.99;
+                  mainString = "Standard ($49.99)\n";
+               } else if(mainSelection.equals("4")) {
+                  total -= mainPrice;
+                  mainString = "";
+                  mainPrice = 79.99;
+                  mainString = "Premium ($79.99)\n";
+               }
+               total += mainPrice;
+            } while(!(mainSelection.equals("5")));
 
-            } else if (mainInput.equals("3")) {
-                // Options
-                displayOptionsMenu();
-                double optPrice1 = 99.99;
-                String optString1 = "Insurance ($99.99)\n";
-                double optPrice2 = 14.99;
-                String optString2 = "GPS ($14.99)\n";
-                double optPrice3 = 9.99;
-                String optString3 = "XM Radio ($9.99)\n";
-                double optPrice4 = 19.99;
-                String optString4 = "Child Seat ($19.99)\n";
-                double optPrice5 = 39.99;
-                String optString5 = "Full Tank of Gas ($39.99)\n";
-                do {
-                    optSelection = keyboard.next();
-                    // To avoid repeat option selection, after option is selected, price and string of that option will become 0 and empty string
-                    if(optSelection.equals("1")) {
-                        optPrice += optPrice1;
-                        optString += optString1;
-                        optionCount += optPrice1 > 0 ? 1 : 0;
-                        optPrice1 = 0;
-                        optString1 = "";
-                    } else if(optSelection.equals("2")) {
-                        optPrice += optPrice2;
-                        optString += optString2;
-                        optionCount += optPrice2 > 0 ? 1 : 0;
-                        optPrice2 = 0;
-                        optString2 = "";
-                    } else if(optSelection.equals("3")) {
-                        optPrice += optPrice3;
-                        optString += optString3;
-                        optionCount += optPrice3 > 0 ? 1 : 0;
-                        optPrice3 = 0;
-                        optString3 = "";
-                    } else if(optSelection.equals("4")) {
-                        optPrice += optPrice4;
-                        optString += optString4;
-                        optionCount += optPrice4 > 0 ? 1 : 0;
-                        optPrice4 = 0;
-                        optString4 = "";
-                    } else if(optSelection.equals("5")) {
-                        optPrice += optPrice5;
-                        optString += optString5;
-                        optionCount += optPrice5 > 0 ? 1 : 0;
-                        optPrice5 = 0;
-                        optString5 = "";
-                    } else if(optSelection.equals("6")) {
-                        // This will clear any options
-                        optString = "";
-                        optPrice = 0;
-                    }
-                } while(!(optSelection.equals("7")));
-                total += optPrice;
+         } else if (mainInput.equals("3")) {
+             // Options
+             displayOptionsMenu();
+             double optPrice1 = 99.99;
+             String optString1 = "Insurance ($99.99)\n";
+             double optPrice2 = 14.99;
+             String optString2 = "GPS ($14.99)\n";
+             double optPrice3 = 9.99;
+             String optString3 = "XM Radio ($9.99)\n";
+             double optPrice4 = 19.99;
+             String optString4 = "Child Seat ($19.99)\n";
+             double optPrice5 = 39.99;
+             String optString5 = "Full Tank of Gas ($39.99)\n";
+             do {
+               optSelection = keyboard.next();
+               // To avoid repeat option selection, after option is selected, price and string of that option will become 0 and empty string
+               if(optSelection.equals("1")) {
+                  optPrice += optPrice1;
+                  optString += optString1;
+                  optionCount += optPrice1 > 0 ? 1 : 0;
+                  optPrice1 = 0;
+                  optString1 = "";
+               } else if(optSelection.equals("2")) {
+                  optPrice += optPrice2;
+                  optString += optString2;
+                  optionCount += optPrice2 > 0 ? 1 : 0;
+                  optPrice2 = 0;
+                  optString2 = "";
+               } else if(optSelection.equals("3")) {
+                  optPrice += optPrice3;
+                  optString += optString3;
+                  optionCount += optPrice3 > 0 ? 1 : 0;
+                  optPrice3 = 0;
+                  optString3 = "";
+               } else if(optSelection.equals("4")) {
+                  optPrice += optPrice4;
+                  optString += optString4;
+                  optionCount += optPrice4 > 0 ? 1 : 0;
+                  optPrice4 = 0;
+                  optString4 = "";
+               } else if(optSelection.equals("5")) {
+                  optPrice += optPrice5;
+                  optString += optString5;
+                  optionCount += optPrice5 > 0 ? 1 : 0;
+                  optPrice5 = 0;
+                  optString5 = "";
+               } else if(optSelection.equals("6")) {
+                  // This will clear any options
+                  optString = "";
+                  optPrice = 0;
+               }
+             } while(!(optSelection.equals("7")));
+             total += optPrice;
             } else if (mainInput.equals("4")) {
                 // Payment Mehtod
                 do {
