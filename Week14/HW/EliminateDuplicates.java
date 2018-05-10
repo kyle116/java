@@ -10,13 +10,13 @@ public class EliminateDuplicates {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("This program reads in ten integers, invokes the method, and displays the result");
-
+        // Initial variables
         int[] numbers = new int[10];
         System.out.print("Enter ten numbers: ");
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = input.nextInt();
         }
-
+        // Printing distinct numbers
         System.out.println("The distinct numbers are: ");
         for (int i = 0; i < numbers.length; i++) {
             if(eliminateDuplicates(numbers)[i] >= 0) {
@@ -28,6 +28,7 @@ public class EliminateDuplicates {
     public static int[] eliminateDuplicates(int[] list) {
         int[] newArr = new int[10];
         boolean unique = false;
+        // Nested loops to check if there is duplicate
         for(int k = 0; k < list.length; k++) {
             for(int l = 0; l < list.length; l++) {
                 if(k != l && list[k] == list[l]) {
