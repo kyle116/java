@@ -12,12 +12,14 @@ public class ReverseArray {
         System.out.println("This program prompts the user to \n" +
                 "enter ten numbers, invokes the method to reverse the numbers, and displays the\n" +
                 "numbers");
-
+        // Initial variables
         System.out.print("Enter 10 numbers: ");
         int[] numbers = new int[10];
+        // Setting the array
         for(int i = 0; i < 10; i++) {
             numbers[i] = input.nextInt();
         }
+        // Calls the method to reverse array and print
         System.out.println("The array reversed is ");
         for(int i = 0; i < 10; i++) {
             System.out.print(reverse(numbers)[i] + " ");
