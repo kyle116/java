@@ -174,13 +174,38 @@ public class Project2 {
                                     } while (!checkingOrSavings.equals("3"));
                                 } else if(input3.equals("2")) {
                                     // Cash deposit
-
+                                    checkingOrSavingsMenu();
+                                    checkingOrSavings = input.nextLine();
+                                    System.out.print("Please enter the amount you would like to deposit:");
+                                    String depositAmount =  input.nextLine();
+                                    double depositMoney = Double.parseDouble(depositAmount);
+                                    if(checkingOrSavings.equals("1")) {
+                                        checking[active_account] = deposit(depositMoney, checking[active_account]);
+                                        System.out.println("Transaction completed. You have deposited $" + depositMoney + " into your checking account.");
+                                    } else if(checkingOrSavings.equals("2")) {
+                                        saving[active_account] = deposit(depositMoney, saving[active_account]);
+                                        System.out.println("Transaction completed. You have deposited $" + depositMoney + " into your savings account.");
+                                    } else if(checkingOrSavings.equals("3")) {
+                                        System.out.println("Transaction Incomplete.");
+                                    } else {
+                                        System.out.println("Invalid input.");
+                                    }
                                 } else if(input3.equals("3")) {
                                     // Transfer
 
                                 } else if(input3.equals("4")) {
                                     // Balance Inquiry
-
+                                    checkingOrSavingsMenu();
+                                    checkingOrSavings = input.nextLine();
+                                    if(checkingOrSavings.equals("1")) {
+                                        System.out.println("Transaction completed. You have a balance of $" + checking[active_account] + " in your checking account");
+                                    } else if(checkingOrSavings.equals("2")) {
+                                        System.out.println("Transaction completed. You have a balance of $" + saving[active_account] + " in your checking account");
+                                    } else if(checkingOrSavings.equals("3")) {
+                                        System.out.println("Transaction Incomplete.");
+                                    } else {
+                                        System.out.println("Invalid input.");
+                                    }
                                 } else {
 
                                 }
@@ -190,17 +215,22 @@ public class Project2 {
                         } else {
                             if(numberAttempts == 2) {
                                 System.out.println("Too many illegal attempts. Try again later.");
-                            } else {
+                            } else if(numberAttempts < 2){
                                 System.out.println("Incorrect PIN, please try again");
+                            } else {
+                                System.out.println("You have exeeded the amount of attempts. Please select clear.");
+                                input2 = "0";
                             }
                             numberAttempts += 1;
                         }
                     }
                 } while(numberAttempts < 3);
 
-            } else if(input2.equals("2")) {
+            } else if(input1.equals("2")) {
                 numberAttempts = 0;
                 active_account = -1;
+            } else if(input1.equals("3")) {
+                System.out.println("***Thank you for using ELACATM***");
             }
         } while(!(input1.equals("3")));
 
@@ -267,7 +297,7 @@ public class Project2 {
         System.out.print("\n1. Checking\n" +
             "2. Savings\n" +
             "3. Cancel transaction\n" +
-            "Plese select account you would like to withdraw from:");
+            "Plese select account:");
     }
 
     private static void withdrawMenu() {
@@ -291,8 +321,14 @@ public class Project2 {
         return total;
     }
 
-    private static void deposit() {
-
+    private static double deposit(double amount, double total) {
+        if(amount <= 0) {
+            System.out.println("Please enter an amount greater than zero");
+        } else {
+            total += amount;
+        }
+        System.out.println(total);
+        return total;
     }
 
     private static void transfer() {
