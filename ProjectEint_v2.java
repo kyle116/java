@@ -1,273 +1,382 @@
 import java.util.Scanner;
-public class ProjectEint_v2 {
-   public static void main(String[] args) {
-      // Initial Variables
-      String name="";
-      String number="";
-      String address="";
-      String missingInfo="";
-      String mainInput, customerInput, cardInput, mainSelection, optSelection;
-      double total = 0;
-      double mainPrice = 0;
-      String mainString = "";
-      double optPrice = 0;
-      String optString = "";
-      int optionCount = 0;
-      String cardType = "";
-      String cardNumber = "";
-      Scanner keyboard = new Scanner(System.in);
-      // Loop for Main Menu Selection
-      do {
-         displayMainMenu();
-         mainInput = keyboard.nextLine();
-         // Customer Information
-         if(mainInput.equals("1")) {
-            do {
-               displayCustomerMenu();
-               customerInput = keyboard.nextLine();
-               if(customerInput.equals("1")) {
-                  name = getName();
-               } else if(customerInput.equals("2")) {
-                  number = getNumber();
-               } else if(customerInput.equals("3")) {
-                  address = getAddress();
-               }
-            } while(!(customerInput.equals("4")));
-         } else if (mainInput.equals("2")) {
-            // Main Selection
-            displayMainSelectionMenu();
-            do {
-               mainSelection = keyboard.next();
-               // If user selects another main selection option, it will be subtracted from the total to prevent miscounting
-               if(mainSelection.equals("1")) {
-                  total -= mainPrice;
-                  mainString = "";
-                  mainPrice = 23.99;
-                  mainString = "Economy ($23.99)\n";
-               } else if(mainSelection.equals("2")) {
-                  total -= mainPrice;
-                  mainString = "";
-                  mainPrice = 39.99;
-                  mainString = "Compact ($39.99)\n";
-               } else if(mainSelection.equals("3")) {
-                  total -= mainPrice;
-                  mainString = "";
-                  mainPrice = 49.99;
-                  mainString = "Standard ($49.99)\n";
-               } else if(mainSelection.equals("4")) {
-                  total -= mainPrice;
-                  mainString = "";
-                  mainPrice = 79.99;
-                  mainString = "Premium ($79.99)\n";
-               }
-               total += mainPrice;
-            } while(!(mainSelection.equals("5")));
 
-         } else if (mainInput.equals("3")) {
-             // Options
-             displayOptionsMenu();
-             double optPrice1 = 99.99;
-             String optString1 = "Insurance ($99.99)\n";
-             double optPrice2 = 14.99;
-             String optString2 = "GPS ($14.99)\n";
-             double optPrice3 = 9.99;
-             String optString3 = "XM Radio ($9.99)\n";
-             double optPrice4 = 19.99;
-             String optString4 = "Child Seat ($19.99)\n";
-             double optPrice5 = 39.99;
-             String optString5 = "Full Tank of Gas ($39.99)\n";
-             do {
-               optSelection = keyboard.next();
-               // To avoid repeat option selection, after option is selected, price and string of that option will become 0 and empty string
-               if(optSelection.equals("1")) {
-                  optPrice += optPrice1;
-                  optString += optString1;
-                  optionCount += optPrice1 > 0 ? 1 : 0;
-                  optPrice1 = 0;
-                  optString1 = "";
-               } else if(optSelection.equals("2")) {
-                  optPrice += optPrice2;
-                  optString += optString2;
-                  optionCount += optPrice2 > 0 ? 1 : 0;
-                  optPrice2 = 0;
-                  optString2 = "";
-               } else if(optSelection.equals("3")) {
-                  optPrice += optPrice3;
-                  optString += optString3;
-                  optionCount += optPrice3 > 0 ? 1 : 0;
-                  optPrice3 = 0;
-                  optString3 = "";
-               } else if(optSelection.equals("4")) {
-                  optPrice += optPrice4;
-                  optString += optString4;
-                  optionCount += optPrice4 > 0 ? 1 : 0;
-                  optPrice4 = 0;
-                  optString4 = "";
-               } else if(optSelection.equals("5")) {
-                  optPrice += optPrice5;
-                  optString += optString5;
-                  optionCount += optPrice5 > 0 ? 1 : 0;
-                  optPrice5 = 0;
-                  optString5 = "";
-               } else if(optSelection.equals("6")) {
-                  // This will clear any options
-                  optString = "";
-                  optPrice = 0;
-               }
-             } while(!(optSelection.equals("7")));
-             total += optPrice;
-            } else if (mainInput.equals("4")) {
-                // Payment Mehtod
+public class Project2 {
+    final static int MAX_ACCOUNTS = 10;
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String input1 = "";
+        String input2 = "";
+        String input3 = "";
+        String withdrawInput = "";
+        String checkingOrSavings = "";
+        String otherWithdraw = "";
+        String transferInput = "";
+        double transferAmount = 0;
+
+        double[] saving = new double[MAX_ACCOUNTS];
+        double[] checking = new double[MAX_ACCOUNTS];
+        String[] pin = new String[MAX_ACCOUNTS];
+
+        int numberOfAccounts = 5;
+        int active_account = -1;
+        int numberAttempts = 0;
+        populateArrays(saving, checking, pin);
+
+        do {
+            menu1();
+            input1 = input.nextLine();
+            if(input1.equals("1")) {
                 do {
-                    displayPaymentsMenu();
-                    cardInput = keyboard.nextLine();
-                    if(cardInput.equals("1")) {
-                        cardType = "Visa";
-                        System.out.print("Please enter your card number: ");
-                        cardNumber = keyboard.nextLine();
-                    } else if(cardInput.equals("2")) {
-                        cardType = "MasterCard";
-                        System.out.print("Please enter your card number: ");
-                        cardNumber = keyboard.nextLine();
-                    } else if(cardInput.equals("3")) {
-                        cardType = "Cash";
+                    menu2();
+                    input2 = input.nextLine();
+                    if(input2.length() != 4) {
+                        System.out.println("Invalid entry, please enter 4 digits");
+                    } else {
+                        active_account = checkPIN(input2, numberOfAccounts, pin, active_account);
+                        if(active_account > -1) {
+                            System.out.println("CORECT PIN. Active Account: " + active_account);
+                            do {
+                                menu3();
+                                input3 = input.nextLine();
+                                // Withdrawal
+                                if(input3.equals("1")) {
+                                    checkingOrSavingsMenu();
+                                    checkingOrSavings = input.nextLine();
+                                    do {
+                                        if(checkingOrSavings.equals("1") || checkingOrSavings.equals("2")) {
+                                            do {
+                                                withdrawMenu();
+                                                withdrawInput = input.nextLine();
+                                                double before = 0;
+                                                if(withdrawInput.equals("1")) {
+                                                    if(checkingOrSavings.equals("1")) {
+                                                        before = checking[active_account];
+                                                        checking[active_account] = withdraw(20, checking[active_account]);
+                                                        if(checking[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $20.00 from your checking account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    } else {
+                                                        before = saving[active_account];
+                                                        saving[active_account] = withdraw(20, saving[active_account]);
+                                                        if(saving[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $20.00 from your savings account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    }
+                                                } else if(withdrawInput.equals("2")) {
+                                                    if(checkingOrSavings.equals("1")) {
+                                                        before = checking[active_account];
+                                                        checking[active_account] = withdraw(40, checking[active_account]);
+                                                        if(checking[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $40.00 from your checking account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    } else {
+                                                        before = saving[active_account];
+                                                        saving[active_account] = withdraw(40, saving[active_account]);
+                                                        if(saving[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $40.00 from your savings account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    }
+                                                } else if(withdrawInput.equals("3")) {
+                                                    if(checkingOrSavings.equals("1")) {
+                                                        before = checking[active_account];
+                                                        checking[active_account] = withdraw(60, checking[active_account]);
+                                                        if(checking[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $60.00 from your checking account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    } else {
+                                                        before = saving[active_account];
+                                                        saving[active_account] = withdraw(60, saving[active_account]);
+                                                        if(saving[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $60.00 from your savings account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    }
+                                                } else if(withdrawInput.equals("4")) {
+                                                    if(checkingOrSavings.equals("1")) {
+                                                        before = checking[active_account];
+                                                        checking[active_account] = withdraw(80, checking[active_account]);
+                                                        if(checking[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $80.00 from your checking account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    } else {
+                                                        before = saving[active_account];
+                                                        saving[active_account] = withdraw(80, saving[active_account]);
+                                                        if(saving[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $80.00 from your savings account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    }
+                                                } else if(withdrawInput.equals("5")) {
+                                                    if(checkingOrSavings.equals("1")) {
+                                                        before = checking[active_account];
+                                                        checking[active_account] = withdraw(100, checking[active_account]);
+                                                        if(checking[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $100.00 from your checking account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    } else {
+                                                        before = saving[active_account];
+                                                        saving[active_account] = withdraw(100, saving[active_account]);
+                                                        if(saving[active_account] != before) {
+                                                            System.out.println("Transaction completed. You have withdrawn $100.00 from your savings account");
+                                                        }
+                                                        checkingOrSavings = "3";
+                                                        withdrawInput = "7";
+                                                    }
+                                                } else if(withdrawInput.equals("6")) {
+                                                    System.out.print("Please enter the amount(in increments of $20.00) you would like to withdraw:");
+                                                    otherWithdraw = input.nextLine();
+                                                    double money = Double.parseDouble(otherWithdraw);
+                                                    if(money % 20 == 0) {
+                                                        if(checkingOrSavings.equals("1")) {
+                                                            before = checking[active_account];
+                                                            checking[active_account] = withdraw(money, checking[active_account]);
+                                                            if(checking[active_account] != before) {
+                                                                System.out.println("Transaction completed. You have withdrawn $" + money + "0 from your checking account");
+                                                            }
+                                                            checkingOrSavings = "3";
+                                                            withdrawInput = "7";
+                                                        } else {
+                                                            before = saving[active_account];
+                                                            saving[active_account] = withdraw(money, saving[active_account]);
+                                                            if(saving[active_account] != before) {
+                                                                System.out.println("Transaction completed. You have withdrawn $" + money + "0 from your savings account");
+                                                            }
+                                                            checkingOrSavings = "3";
+                                                            withdrawInput = "7";
+                                                        }
+                                                    } else {
+                                                        System.out.println("Invalid withdrawal amount. Please enter a different amount");
+                                                    }
+                                                } else if(withdrawInput.equals("7")) {
+                                                    // set to 3 to stop previous loop
+                                                    System.out.println("Transaction Incomplete.");
+                                                    checkingOrSavings = "3";
+                                                }
+                                            } while(!withdrawInput.equals("7"));
+                                        } else if(checkingOrSavings.equals("3")) {
+                                            System.out.println("Transaction Incomplete.");
+                                        }
+                                    } while (!checkingOrSavings.equals("3"));
+                                } else if(input3.equals("2")) {
+                                    // Cash deposit
+                                    checkingOrSavingsMenu();
+                                    checkingOrSavings = input.nextLine();
+                                    System.out.print("Please enter the amount you would like to deposit:");
+                                    String depositAmount =  input.nextLine();
+                                    double depositMoney = Double.parseDouble(depositAmount);
+                                    if(checkingOrSavings.equals("1")) {
+                                        checking[active_account] = deposit(depositMoney, checking[active_account]);
+                                        System.out.println("Transaction completed. You have deposited $" + depositMoney + " into your checking account.");
+                                    } else if(checkingOrSavings.equals("2")) {
+                                        saving[active_account] = deposit(depositMoney, saving[active_account]);
+                                        System.out.println("Transaction completed. You have deposited $" + depositMoney + " into your savings account.");
+                                    } else if(checkingOrSavings.equals("3")) {
+                                        System.out.println("Transaction Incomplete.");
+                                    } else {
+                                        System.out.println("Invalid input.");
+                                    }
+                                } else if(input3.equals("3")) {
+                                    // Transfer
+                                    transferMenu();
+                                    transferInput = input.nextLine();
+                                    double[] transferArr = new double[3];
+                                    if(transferInput.equals("1")) {
+                                        transferArr = transfer(1, checking[active_account], saving[active_account], transferAmount);
+                                        checking[active_account] = transferArr[0];
+                                        saving[active_account] = transferArr[1];
+                                        transferAmount = transferArr[2];
+                                        System.out.println("Transaction completed. You have transfered $" + transferAmount + " from your checking to savings account");
+                                    } else if(transferInput.equals("2")) {
+                                        transferArr = transfer(2, checking[active_account], saving[active_account], transferAmount);
+                                        checking[active_account] = transferArr[0];
+                                        saving[active_account] = transferArr[1];
+                                        transferAmount = transferArr[2];
+                                        System.out.println("Transaction completed. You have transfered $" + transferAmount + " from your savings to checking account");
+                                    } else if(transferInput.equals("3")) {
+                                        System.out.println("Transaction Incomplete.");
+                                    } else {
+                                        System.out.println("Invalid input.");
+                                    }
+                                } else if(input3.equals("4")) {
+                                    // Balance Inquiry
+                                    checkingOrSavingsMenu();
+                                    checkingOrSavings = input.nextLine();
+                                    if(checkingOrSavings.equals("1")) {
+                                        System.out.println("Transaction completed. You have a balance of $" + checking[active_account] + " in your checking account");
+                                    } else if(checkingOrSavings.equals("2")) {
+                                        System.out.println("Transaction completed. You have a balance of $" + saving[active_account] + " in your checking account");
+                                    } else if(checkingOrSavings.equals("3")) {
+                                        System.out.println("Transaction Incomplete.");
+                                    } else {
+                                        System.out.println("Invalid input.");
+                                    }
+                                } else if(input3.equals("5")){
+                                    active_account = -1;
+                                } else {
+                                    System.out.println("Invalid Input.");
+                                }
+                            } while(!input3.equals("5"));
+                            break;
+                        } else {
+                            if(numberAttempts == 2) {
+                                System.out.println("Too many illegal attempts. Try again later.");
+                            } else if(numberAttempts < 2){
+                                System.out.println("Incorrect PIN, please try again");
+                            } else {
+                                System.out.println("You have exeeded the amount of attempts. Please select clear.");
+                                input2 = "0";
+                            }
+                            numberAttempts += 1;
+                        }
                     }
-                } while(!(cardInput.equals("4")));
-            } else if(mainInput.equals("5")) {
-                // Display Order Confirmation
-                if(isOrderConplete(name, number, address, mainString, cardType, cardNumber)) {
-                    displayOrder(name, number, address, total, mainString, optString, optionCount, cardType, cardNumber);
-                } else {
-                    displayErrors(name, number, address, mainString, cardType, cardNumber);
-                }
-            }
-        } while(!(mainInput.equals("6")));
-    }
-    // Menus
-    private static String getName() {
-        String name = "";
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter customer name: ");
-        name = keyboard.nextLine();
-        return name;
-    }
-    private static String getNumber() {
-        String number = "";
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter customer phone number: ");
-        number = keyboard.nextLine();
-        return number;
-    }
-    private static String getAddress() {
-        String address = "";
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter customer address: ");
-        address = keyboard.nextLine();
-        return address;
-    }
-    private static void displayMainMenu() {
-        System.out.println();
-        System.out.println("1. Input Customer Information\n" +
-                "2. Main Selection\n" +
-                "3. Options\n" +
-                "4. Payment Method\n" +
-                "5. Display Order Confirmation\n" +
-                "6. Exit");
-        System.out.print("\nYour selection: ");
-    }
-    private static void displayCustomerMenu() {
-        System.out.println();
-        System.out.println("1. Name\n" +
-                "2. Phone Number\n" +
-                "3. Address\n" +
-                "4. Main Menu\n");
-        System.out.print("\nYour selection: ");
-    }
-    private static void displayMainSelectionMenu() {
-        System.out.println();
-        System.out.println("1. Economy ($23.99)\n" +
-                "2. Compact ($39.99)\n" +
-                "3. Standard ($49.99)\n" +
-                "4. Premium ($79.99)\n" +
-                "5. Main Menu\n");
-        System.out.print("\nMake your selection(1-5): ");
-    }
-    private static void displayOptionsMenu() {
-        System.out.println();
-        System.out.println("1. Insurance ($99.99)\n" +
-                "2. GPS ($14.99)\n" +
-                "3. XM Radio ($9.99)\n" +
-                "4. Child Seat ($19.99)\n" +
-                "5. Full Tank of Gas ($39.99)\n" +
-                "6. Clear Options\n" +
-                "7. Main Menu\n");
-        System.out.print("\nYour selection: ");
-    }
-    private static void displayPaymentsMenu() {
-        System.out.println();
-        System.out.println("1. Visa\n" +
-                "2. Mastercard\n" +
-                "3. Cash\n" +
-                "4. Main Menu\n");
-        System.out.print("\nYour selection: ");
-    }
-    private static String getGift(int optionCount) {
-        String giftString = "";
-        if(optionCount == 2) {
-            giftString = "$20 coupon for your next rental";
-        } else if(optionCount == 3) {
-            giftString = "$10 off at a local restaurant";
-        } else if(optionCount >= 4) {
-            giftString = "One free car wash";
-        }
-        return giftString;
-    }
-    // Displays order
-    private static void displayOrder(String name, String number, String address, double total, String mainSelection, String optSelection, int optionCount, String cardType, String cardNumber) {
-        String orderInfo = "You have placed an order for: \n";
-        orderInfo = orderInfo + mainSelection + "With the following options:\n" + optSelection;
-        // Calculates total with tax
-        orderInfo += "\nTotal price: $" + ((double) Math.round(total * 1.0975 * 100)/100) + "\n\n";
-        orderInfo += optionCount > 1 ? "Congratulations. You will get the following free gift with your order:\n" + (getGift(optionCount)) : "";
-        orderInfo += "\nSold to: " + name;
-        orderInfo += "\nTelephone: " + number;
-        orderInfo += "\nAddress: " + address;
-        orderInfo += "\nPaid by: " + cardType + (cardType != "Cash" ? " number" + cardNumber : "");
+                } while(numberAttempts < 3);
 
-        System.out.println("\n" + orderInfo + "\n\n");
+            } else if(input1.equals("2")) {
+                numberAttempts = 0;
+                active_account = -1;
+            } else if(input1.equals("3")) {
+                System.out.println("***Thank you for using ELACATM***");
+            }
+        } while(!(input1.equals("3")));
+
+
+        active_account = 0;
+        System.out.println(saving[active_account]);
+        System.out.println(checking[active_account]);
+        System.out.println(pin[active_account]);
     }
-    // Error display message
-    private static void displayErrors(String name, String number, String address, String mainString, String cardType, String cardNumber) {
-        String missingInfo = "\nPlease complete:\n";
-        if(name.equals("")) {
-            missingInfo += "Name\n";
-        }
-        if(number.equals("")) {
-            missingInfo += "Phone Number\n";
-        }
-        if(address.equals("")) {
-            missingInfo += "Address\n";
-        }
-        if(mainString.equals("")) {
-            missingInfo += "Auto Type Selection\n";
-        }
-        if(cardType.equals("")) {
-            missingInfo += "Card Type\n";
-        }
-        if(cardNumber.equals("")) {
-            missingInfo += "Card Number\n";
-        }
-        System.out.println(missingInfo);
+
+    public static void populateArrays(double[] saving, double[] checking, String[] pin) {
+        saving[0] = 1000;
+        checking[0] = 1000;
+        pin[0] = "1111";
+
+        saving[1] = 2000;
+        checking[1] = 2000;
+        pin[1] = "3000";
+
+        saving[2] = 7912;
+        checking[2] = 6510;
+        pin[2] = "9616";
+
+        saving[3] = 9011;
+        checking[3] = 78541;
+        pin[3] = "4151";
+
+        saving[4] = 494;
+        checking[4] = 33;
+        pin[4] = "4504";
     }
-    // Checks if there order is complete
-    private static boolean isOrderConplete(String name, String number, String address, String mainString, String cardType, String cardNumber) {
-        boolean status = true;
-        if(name.equals("") || number.equals("") || address.equals("") || mainString.equals("") || cardType.equals("")) {
-            status = false;
-        } else if((cardType.equals("Visa") && cardNumber.equals("")) || (cardType.equals("Mastercard") && cardNumber.equals(""))) {
-            // If Visa or Mastercard is selected and card number is blank, error. Cash will not care for card nummber
-            status = false;
-        }
-        return status;
+
+    private static void menu1() {
+        System.out.print("*** Welcome to ELACATM ***\n" +
+                "1. Input PIN\n" +
+                "2. Clear\n" +
+                "3. Exit\n" +
+                "Please make a selection: ");
     }
+
+    private static void menu2() {
+        System.out.println("\nPlease input your pin: ");
+    }
+
+    private static void menu3() {
+        System.out.print("\n*** ELACATM system ***\n" +
+                "1. Withdrawal\n" +
+                "2. Cash Deposit\n" +
+                "3. Tranfer\n" +
+                "4. Balance Inquiry\n" +
+                "5. Logout\n" +
+                "Please make a selection: ");
+    }
+
+    private static int checkPIN(String custPinInput, int numberOfAccounts, String[] pin, int active_account) {
+        for(int i = 0; i < numberOfAccounts; i++) {
+            if(pin[i].equals(custPinInput)) {
+                return active_account = i;
+            }
+        }
+        return -1;
+    }
+    private static void checkingOrSavingsMenu() {
+        System.out.print("\n1. Checking\n" +
+            "2. Savings\n" +
+            "3. Cancel transaction\n" +
+            "Plese select account: ");
+    }
+
+    private static void withdrawMenu() {
+        System.out.print("\n1. $20.00\n" +
+            "2. $40.00\n" +
+            "3. $60.00\n" +
+            "4. $80.00\n" +
+            "5. $100.00\n" +
+            "6. Other\n" +
+            "7. Cancel Transaction\n" +
+            "Please select amount to withdraw:\n");
+    }
+
+    private static double withdraw(double amount, double total) {
+        if((total - amount)< 0) {
+            System.out.println("Insufficient funds. Please enter a different amount.");
+        } else {
+            total -= amount;
+        }
+        System.out.println(total);
+        return total;
+    }
+
+    private static double deposit(double amount, double total) {
+        if(amount <= 0) {
+            System.out.println("Please enter an amount greater than zero");
+        } else {
+            total += amount;
+        }
+        System.out.println(total);
+        return total;
+    }
+
+    private static void transferMenu() {
+        System.out.print("\nPlease select which account you would like to transfer from and to:\n" +
+                "1. Checkings to Savings\n" +
+                "2. Savings to Checkings\n" +
+                "3. Cancel transaction\n" +
+                "Plese select account: ");
+    }
+
+    private static double[] transfer(int selection, double checking, double saving, double amount) {
+        double[] checkingSaving = new double[3];
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the amount you would like to transfer: ");
+        amount = input.nextDouble();
+        if (selection == 1 && amount < checking) {
+            checking = checking - amount;
+            saving = saving + amount;
+        } else if(selection == 2 && amount < saving) {
+            checking = checking + amount;
+            saving = saving - amount;
+        }
+        checkingSaving[0] = checking;
+        checkingSaving[1] = saving;
+        checkingSaving[2] = amount;
+        return checkingSaving;
+    }
+    
 }
