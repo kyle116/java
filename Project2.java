@@ -33,7 +33,7 @@ public class Project2 {
                     } else {
                         active_account = checkPIN(input2, numberOfAccounts, pin, active_account);
                         if(active_account > -1) {
-                            System.out.println("CORECT PIN. Active Account: " + active_account);
+                            System.out.println("CORECT PIN");
                             do {
                                 menu3();
                                 input3 = input.nextLine();
@@ -166,6 +166,8 @@ public class Project2 {
                                                     // set to 3 to stop previous loop
                                                     System.out.println("Transaction Incomplete.");
                                                     checkingOrSavings = "3";
+                                                } else {
+                                                    System.out.println("Invalid input");
                                                 }
                                             } while(!withdrawInput.equals("7"));
                                         } else if(checkingOrSavings.equals("3")) {
@@ -192,7 +194,24 @@ public class Project2 {
                                     }
                                 } else if(input3.equals("3")) {
                                     // Transfer
-
+                                    transferMenu();
+                                    String transferInput = input.nextLine();
+                                    double[] transferAmounts = transfer(checking[active_account], saving[active_account], transferInput);
+                                    checking[active_account] = transferAmounts[0];
+                                    saving[active_account] = transferAmounts[1];
+                                    if(transferInput.equals("1") || transferInput.equals("2")) {
+                                        if(transferInput.equals("1") && transferAmounts[2] <= checking[active_account]) {
+                                            System.out.println("Transaction complete. You have transfered $" + transferAmounts[2] + " from your checkings to your savings account");
+                                        } else if(transferInput.equals("2") && transferAmounts[2] <= saving[active_account]) {
+                                            System.out.println("Transaction complete. You have transfered $" + transferAmounts[2] + " from your checkings to your savings account");
+                                        } else {
+                                            System.out.println("Invalid funds!");
+                                        }
+                                    } else if(transferInput.equals("3")) {
+                                        System.out.println("Transaction incomplete");
+                                    } else {
+                                        System.out.println("Invalid input");
+                                    }
                                 } else if(input3.equals("4")) {
                                     // Balance Inquiry
                                     checkingOrSavingsMenu();
@@ -207,7 +226,7 @@ public class Project2 {
                                         System.out.println("Invalid input.");
                                     }
                                 } else {
-
+                                    System.out.println("Invalid Input");
                                 }
 
                             } while(!input3.equals("5"));
@@ -297,7 +316,7 @@ public class Project2 {
         System.out.print("\n1. Checking\n" +
             "2. Savings\n" +
             "3. Cancel transaction\n" +
-            "Plese select account:");
+            "Plese select account: ");
     }
 
     private static void withdrawMenu() {
@@ -308,7 +327,7 @@ public class Project2 {
             "5. $100.00\n" +
             "6. Other\n" +
             "7. Cancel Transaction\n" +
-            "Please select amount to withdraw:\n");
+            "Please select amount to withdraw: \n");
     }
 
     private static double withdraw(double amount, double total) {
@@ -317,7 +336,6 @@ public class Project2 {
         } else {
             total -= amount;
         }
-        System.out.println(total);
         return total;
     }
 
@@ -330,12 +348,34 @@ public class Project2 {
         System.out.println(total);
         return total;
     }
-
-    private static void transfer() {
-
+    
+    private static void transferMenu() {
+        System.out.print("\nPlease select account you would like to transfer from and to:\n" +
+            "1. Checkings to Savings\n" +
+            "2. Savings to Checkings\n" +
+            "3. Cancel transaction\n" +
+            "Enter selection: "
+        );
     }
 
-    private static void balanceInquiry() {
-
+    private static double[] transfer(double checking, double saving, String transferInput) {
+        Scanner input = new Scanner(System.in); 
+        double[] transferArr = new double[3];
+        transferArr[0] = checking;
+        transferArr[1] = saving;
+        if(transferInput.equals("1") || transferInput.equals("2")) {
+            System.out.print("Please enter the amount you would like to transfer: ");
+            double transferAmount = input.nextDouble();
+            transferArr[2] = transferAmount; 
+            if(transferInput.equals("1") && transferAmount <= checking) {
+                transferArr[0] = checking - transferAmount;
+                transferArr[1] = saving + transferAmount;
+            } else if(transferInput.equals("2") && transferAmount <= saving) {
+                transferArr[0] = checking + transferAmount;
+                transferArr[1] = saving - transferAmount;
+            }
+        }
+        return transferArr;
     }
+
 }
