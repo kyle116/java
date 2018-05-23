@@ -178,13 +178,16 @@ public class Project2 {
                                     // Cash deposit
                                     checkingOrSavingsMenu();
                                     checkingOrSavings = input.nextLine();
-                                    System.out.print("Please enter the amount you would like to deposit:");
-                                    String depositAmount =  input.nextLine();
-                                    double depositMoney = Double.parseDouble(depositAmount);
                                     if(checkingOrSavings.equals("1")) {
+                                        System.out.print("Please enter the amount you would like to deposit:");
+                                        String depositAmount =  input.nextLine();
+                                        double depositMoney = Double.parseDouble(depositAmount);
                                         checking[active_account] = deposit(depositMoney, checking[active_account]);
                                         System.out.println("Transaction completed. You have deposited $" + depositMoney + " into your checking account.");
                                     } else if(checkingOrSavings.equals("2")) {
+                                        System.out.print("Please enter the amount you would like to deposit:");
+                                        String depositAmount =  input.nextLine();
+                                        double depositMoney = Double.parseDouble(depositAmount);
                                         saving[active_account] = deposit(depositMoney, saving[active_account]);
                                         System.out.println("Transaction completed. You have deposited $" + depositMoney + " into your savings account.");
                                     } else if(checkingOrSavings.equals("3")) {
@@ -314,20 +317,20 @@ public class Project2 {
     }
     private static void checkingOrSavingsMenu() {
         System.out.print("\n1. Checking\n" +
-            "2. Savings\n" +
-            "3. Cancel transaction\n" +
-            "Plese select account: ");
+                "2. Savings\n" +
+                "3. Cancel transaction\n" +
+                "Plese select account: ");
     }
 
     private static void withdrawMenu() {
         System.out.print("\n1. $20.00\n" +
-            "2. $40.00\n" +
-            "3. $60.00\n" +
-            "4. $80.00\n" +
-            "5. $100.00\n" +
-            "6. Other\n" +
-            "7. Cancel Transaction\n" +
-            "Please select amount to withdraw: \n");
+                "2. $40.00\n" +
+                "3. $60.00\n" +
+                "4. $80.00\n" +
+                "5. $100.00\n" +
+                "6. Other\n" +
+                "7. Cancel Transaction\n" +
+                "Please select amount to withdraw: \n");
     }
 
     private static double withdraw(double amount, double total) {
@@ -348,25 +351,25 @@ public class Project2 {
         System.out.println(total);
         return total;
     }
-    
+
     private static void transferMenu() {
         System.out.print("\nPlease select account you would like to transfer from and to:\n" +
-            "1. Checkings to Savings\n" +
-            "2. Savings to Checkings\n" +
-            "3. Cancel transaction\n" +
-            "Enter selection: "
+                "1. Checkings to Savings\n" +
+                "2. Savings to Checkings\n" +
+                "3. Cancel transaction\n" +
+                "Enter selection: "
         );
     }
 
     private static double[] transfer(double checking, double saving, String transferInput) {
-        Scanner input = new Scanner(System.in); 
+        Scanner input = new Scanner(System.in);
         double[] transferArr = new double[3];
         transferArr[0] = checking;
         transferArr[1] = saving;
         if(transferInput.equals("1") || transferInput.equals("2")) {
             System.out.print("Please enter the amount you would like to transfer: ");
             double transferAmount = input.nextDouble();
-            transferArr[2] = transferAmount; 
+            transferArr[2] = transferAmount;
             if(transferInput.equals("1") && transferAmount <= checking) {
                 transferArr[0] = checking - transferAmount;
                 transferArr[1] = saving + transferAmount;
