@@ -4,6 +4,7 @@ public class Project2 {
     final static int MAX_ACCOUNTS = 10;
 
     public static void main(String[] args) {
+        // Initial Variables
         Scanner input = new Scanner(System.in);
         String input1 = "";
         String input2 = "";
@@ -19,13 +20,17 @@ public class Project2 {
         int numberOfAccounts = 5;
         int active_account = -1;
         int numberAttempts = 0;
+        // Calls method to populate array
         populateArrays(saving, checking, pin);
-
+        
+        // While loops to present menus
         do {
+            // Main Menu
             menu1();
             input1 = input.nextLine();
             if(input1.equals("1")) {
                 do {
+                    // Logged in menu
                     menu2();
                     input2 = input.nextLine();
                     if(input2.length() != 4) {
@@ -44,9 +49,11 @@ public class Project2 {
                                     do {
                                         if(checkingOrSavings.equals("1") || checkingOrSavings.equals("2")) {
                                             do {
+                                                // Withdraw menu
                                                 withdrawMenu();
                                                 withdrawInput = input.nextLine();
                                                 double before = 0;
+                                                // Withdraw Increments
                                                 if(withdrawInput.equals("1")) {
                                                     if(checkingOrSavings.equals("1")) {
                                                         before = checking[active_account];
@@ -138,6 +145,7 @@ public class Project2 {
                                                         withdrawInput = "7";
                                                     }
                                                 } else if(withdrawInput.equals("6")) {
+                                                    // Other Increment
                                                     System.out.print("Please enter the amount(in increments of $20.00) you would like to withdraw:");
                                                     otherWithdraw = input.nextLine();
                                                     double money = Double.parseDouble(otherWithdraw);
@@ -235,6 +243,7 @@ public class Project2 {
                             } while(!input3.equals("5"));
                             break;
                         } else {
+                            // Number of Pin Tries
                             if(numberAttempts == 2) {
                                 System.out.println("Too many illegal attempts. Try again later.");
                             } else if(numberAttempts < 2){
