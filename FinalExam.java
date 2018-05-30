@@ -9,7 +9,7 @@ public class FinalExam {
    public static void main(String[] args) {
       String[] sampleArray = getInfo();
       // Displays the content of the original array
-      System.out.println("Original Array content:");
+      System.out.println("Original List:");
       displayNames(sampleArray);
       System.out.println("");
       
@@ -18,14 +18,19 @@ public class FinalExam {
          "in the array and integer of 1 gives us: " + returnWord(sampleArray[0], 1));
       System.out.println("");
       
+      // Displays only names
+      System.out.println("Names:");
+      properFormatAge(sampleArray, 0, false);
+      System.out.println("");
+      
       // Displays the names in proper format
       System.out.println("Proper format with default age");
-      properFormatAge(sampleArray, 0);
+      properFormatAge(sampleArray, 0, true);
       System.out.println("");
       
       // Displays the name in proper format followed by age in 10 years
-      System.out.println("Proper format with age plus 10");
-      properFormatAge(sampleArray, 10);
+      System.out.println("Age after 10 years");
+      properFormatAge(sampleArray, 10, true);
    }
    
    public static String[] getInfo() {
@@ -53,7 +58,7 @@ public class FinalExam {
       return retWord;
    }
    
-   public static void properFormatAge(String[] words, int increase) {
+   public static void properFormatAge(String[] words, int increase, boolean ageDisplay) {
       // Loops through array
       for(int i = 0; i < words.length; i++) {
          // Calls returnWord to get the age
@@ -67,7 +72,7 @@ public class FinalExam {
          }
          
          // Prints out the name then the age
-         System.out.println(returnWord(words[i], 1) + " " + newAge);
+         System.out.println(returnWord(words[i], 1) + (ageDisplay ? " " + newAge : ""));
       }
    }
    
